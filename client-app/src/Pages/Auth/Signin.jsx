@@ -34,7 +34,6 @@ const Signin = () => {
     let newErrors = {};
 
    
-
     // Validate email
     if (!email) {
       newErrors.email = 'Email is required';
@@ -130,7 +129,7 @@ const Signin = () => {
      
         <Google/>
 
-        <p className='my-4'>Don't have an account? <Link className='text-[#986c55] underline' to={'/sign-up'}>sign-up</Link></p>
+        <p className='my-4'>Don't have an account? <Link className='text-[#986c55] underline' to={'/sign-up'}>sign up</Link></p>
       </div>
     </div>
   </div>

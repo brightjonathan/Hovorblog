@@ -3,7 +3,11 @@ import {AiFillEyeInvisible, AiFillEye, AiOutlineMail} from 'react-icons/ai';
 import {FaRegUser} from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import Google from './Google';
+import { toast } from "react-toastify";
+import LoaderSpinner from '../../Component/LoaderSpinner';
 
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 const initialState = {
   username: '',
@@ -14,9 +18,11 @@ const initialState = {
 
 const Signup = () => {
 
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState(initialState);
-
+  const [loading, setLoading] = useState(false);
+  
     //de-structing the initialState
     const {username, email, password, confirmPassword} = formData;
     
@@ -71,29 +77,48 @@ const Signup = () => {
     };
 
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
   
       if (validateForm()) {
-        // Perform form submission
-        console.log('Form submitted:', formData);
-        //setFormData(initialState);
+       
+        try {
+          setLoading(true);
+          const res = await fetch(`${API_BASE_URL}/api/auth/signup`, {
+            method: 'POST',
+            headers: { 
+              'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify(formData),
+          });
+          const data = await res.json();
+          if (data.success === false) {
+            toast.error(data.message);
+            setLoading(false);
+            return;
+          }
+          setLoading(false);
+          if(res.ok) {
+            navigate('/sign-in');
+            toast.success("signup successfully");
+          }
+        } catch (error) {
+          toast.error(error.message);
+          setLoading(false);
+        }
+    
       }
       
     };
-
-    
   
     const handleChange = (e) => {
       setFormData({...formData, [e.target.name]: e.target.value});
     };
 
-
-
-
     
   return (
     <div>
+       {loading && <LoaderSpinner />}
     <div className='max-w-[800px] m-auto px-4 pb-16'>
       <div className=' dark:bg-[#e8edea] px-10 py-8 rounded-lg text-black'>
         <h1 className='text-2xl font-bold text-green-800 ' > Register Account </h1> 
@@ -187,7 +212,7 @@ const Signup = () => {
      
         <Google/>
 
-        <p className='my-4'>Don't have an account? <Link className='text-[#986c55] underline' to={'/sign-in'}>sign-in</Link></p>
+        <p className='my-4'>Don't have an account? <Link className='text-[#986c55] underline' to={'/sign-in'}>sign in</Link></p>
       </div>
     </div>
   </div>
