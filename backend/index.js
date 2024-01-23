@@ -8,7 +8,7 @@ import dotenv from 'dotenv';
 
 //all import file coming from a folder
 import db from './Config/db.js'
-//import userRouter from "./routes/user.route.js";
+import userRouter from "./routes/user.route.js";
 
 
 //connections to database
@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
 
 //for all routes end-points
-//app.use('/api/auth', userRouter);
+app.use('/api/auth', userRouter);
 
 
 //local host connection 

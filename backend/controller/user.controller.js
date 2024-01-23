@@ -1,58 +1,49 @@
-import mongoose from 'mongoose';
+import asyncHandler from 'express-async-handler';
+import User from '../model/user.model.js';
+import {errorHandler} from '../middleware/error.js'
+import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const userSchema  = new mongoose.Schema({
-    username: {
-        type: String,
-        require: true,
-    },
-    email: {
-        type: String,
-        require: true,
-        unique: true,
-        trim: true,
-        match: [
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-            "Please enter a valid emaial",
-        ], //for validating an email...
-    },
-    password: {
-        type: String,
-        require: true,
-        minLength:[6, "password must be up to 6 characters"]
-    },
-    photo:{
-        type: String,
-        default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-    },
-    phone: {
-        type: String,
-        default: "+234",
-      },
-      bio: {
-        type: String,
-        maxLength: [250, "Bio must not be more than 250 characters"],
-        default: "bio",
-      },
-      isAdmin: {
-        type: Boolean,
-        default: false,
-      },
-}, {
-    timestamps: true
-})
 
-//Encrypting the password before saving it to the database
-userSchema.pre('save', async function(next) { 
+//@desc      SIGNUP funct...
+//@route    POST /api/auth/signup
+//@access    public
+export const signup = asyncHandler(async (req, res, next)=>{
 
-    //if the password is not modified go to next piece of code
-    if(!this.isModified("password")) return next();
+    const {username, email, password} = req.body;
 
-    //bcrypting or hiding the password 
-    const hashedpassword = bcryptjs.hashSync(this.password, 10);
-    this.password = hashedpassword;
-    next();
+    //validating the input fields
+    if (!username || !email || !password) return next(errorHandler(400, 'please, fill in all required fields'));
+    
+    //validating the password length
+    if(password.length < 6) return next(errorHandler(400, 'password must be up to 6 character'));
+
+    //checking if users already exist...
+    const userExist = await User.findOne({email});
+    if(userExist) return next(errorHandler(400, 'user already been registered'));
+    
+    //The password is already Encrypted in the user model;
+    const createUser = await User.create({
+        username,
+        email,
+        password
+    });
+
+    //generate token
+    const token = jwt.sign({id: createUser._id}, process.env.JWT_SECRET);
+
+    try {
+        if(createUser) return res.cookie('access_token', token, 
+        { 
+            httpOnly: true, 
+            sameSite: "none",
+            secure: true
+        })
+        .status(201).json('user created successfully');
+    } catch (error) {
+        next(error);
+    };
+
 });
-
-const User = mongoose.model('User', userSchema);
-export default User;
