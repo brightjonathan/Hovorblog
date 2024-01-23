@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import {AiFillEyeInvisible, AiFillEye, AiOutlineMail} from 'react-icons/ai';
-import {FaRegUser} from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import Google from './Google';
 
