@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 //app.use('/api/auth', userRouter);
 
 
-//local host connection
+//local host connection 
 const port = 4000;
 app.listen(port, ()=>{
  console.log(`server is running on port ${port}!!!`);
