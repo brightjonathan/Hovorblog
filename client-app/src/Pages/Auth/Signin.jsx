@@ -1,7 +1,17 @@
 import { useState } from 'react';
 import {AiFillEyeInvisible, AiFillEye, AiOutlineMail} from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Google from './Google';
+import { 
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from '../../Redux/User/AuthSlice';
+import LoaderSpinner from '../../Component/LoaderSpinner';
+import { toast } from "react-toastify";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 
 const initialState = {
@@ -9,17 +19,15 @@ const initialState = {
   password: '',
 };
 
-
-
 const Signin = () => {
 
-  const [formData, setFormData] = useState(initialState);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  //de-structing the initialState
+  const [formData, setFormData] = useState(initialState);
+  const [loading, setLoading] = useState(false);
   const { email, password} = formData;
-  
-  
-    const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
 
 
   //toggling for password eye
@@ -28,11 +36,8 @@ const Signin = () => {
     setPasswordEye(!passwordEye)
   }
   
-  
-
   const validateForm = () => {
     let newErrors = {};
-
    
     // Validate email
     if (!email) {
@@ -55,18 +60,42 @@ const Signin = () => {
   };
 
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateForm()) {
-      // Perform form submission
-      console.log('Form submitted:', formData);
-      //setFormData(initialState);
+      try {
+        setLoading(true);
+        dispatch(signInStart());
+        const res = await fetch(`${API_BASE_URL}/api/auth/signin`, {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json' 
+          },
+          body: JSON.stringify(formData),
+        });
+        const data = await res.json();
+        if (data.success === false) {
+          dispatch(signInFailure(data.message));
+          toast.error(data.message);
+          setLoading(false);
+          return;
+        }
+        setLoading(false);
+        if(res.ok) {
+          dispatch(signInSuccess(data));
+          toast.success("signup successfully");
+          navigate('/');
+        }
+      } catch (error) {
+        toast.error(error.message);
+        dispatch(signInFailure(error.message));
+        setLoading(false);
+      }
     }
     
   };
 
-  
 
   const handleChange = (e) => {
     setFormData({...formData, [e.target.name]: e.target.value});
@@ -75,9 +104,10 @@ const Signin = () => {
 
   return (
     <div>
+      {loading && <LoaderSpinner />}
     <div className='max-w-[800px] m-auto px-4 pb-16'>
       <div className=' dark:bg-[#e8edea] px-10 py-8 rounded-lg text-black'>
-        <h1 className='text-2xl font-bold text-green-800 ' > Login Account </h1> 
+        <h1 className='text-2xl font-bold text-green-800'> Login Account </h1>
         <form onSubmit={handleSubmit}>
 
           <div className='grid md:grid-cols-2 md:gap-8'>
