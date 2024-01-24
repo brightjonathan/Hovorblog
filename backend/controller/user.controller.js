@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import User from '../model/user.model.js';
-import {errorHandler} from '../middleware/error.js'
+import {errorHandler} from '../middleware/error.js';
 import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
 import dotenv from 'dotenv';
@@ -47,3 +47,8 @@ export const signup = asyncHandler(async (req, res, next)=>{
     };
 
 });
+
+
+
+
+

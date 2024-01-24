@@ -22,13 +22,10 @@ const Signup = () => {
 
   const [formData, setFormData] = useState(initialState);
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   
     //de-structing the initialState
     const {username, email, password, confirmPassword} = formData;
-    
-    
-      const [errors, setErrors] = useState({});
-
 
     //toggling for password eye
     const [passwordEye, setPasswordEye] = useState(false);
@@ -112,7 +109,7 @@ const Signup = () => {
     };
   
     const handleChange = (e) => {
-      setFormData({...formData, [e.target.name]: e.target.value});
+      setFormData({...formData, [e.target.name]: e.target.value.trim()});
     };
 
     
