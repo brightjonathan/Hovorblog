@@ -50,5 +50,40 @@ export const signup = asyncHandler(async (req, res, next)=>{
 
 
 
+//@desc      SIGNIN funct...
+//@route    POST /api/auth/signin
+//@access    public
+export const signin = asyncHandler(async (req, res, next)=>{
+    const {email, password} = req.body;
+
+    //validating the input fields
+    if (!email || !password) return next(errorHandler(400, 'please, fill in all required fields'));
+
+    //checking if user exit
+    const userExit = await User.findOne({email});
+    if(!userExit) return next(errorHandler(400, 'wrong credentail'));
+
+    //checking if password is correct
+    const validPassword = bcryptjs.compareSync(password, userExit.password);
+    if(!validPassword) return next(errorHandler(401, 'wrong credentail'));
+    const token = jwt.sign({id: userExit._id}, process.env.JWT_SECRET);
+
+     //hiding the password 
+     const {password: pass, ...rest } = userExit._doc; 
+
+    try {
+         if (userExit && validPassword) {
+            res.cookie("access_token", token, {
+                httpOnly: true,
+                sameSite: "none",
+                secure: true,
+              })
+            .status(200).json(rest);
+        }
+    } catch (error) {
+        next(error)
+    }
+});
+
 
 
