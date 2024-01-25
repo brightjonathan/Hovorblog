@@ -114,7 +114,7 @@ const Signup = () => {
 
     
   return (
-    <div>
+    <div className='mt-[5vh]'>
        {loading && <LoaderSpinner />}
     <div className='max-w-[800px] m-auto px-4 pb-16'>
       <div className=' dark:bg-[#e8edea] px-10 py-8 rounded-lg text-black'>

@@ -10,12 +10,14 @@ import {
   signoutUserStart, 
   signoutUserSuccess 
 } from '../Redux/User/AuthSlice';
+import { toggleTheme } from '../Redux/Theme/ThemeSlice';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 const HeaderNarbar = () => {
 
     const path = useLocation().pathname;
+    const { theme } = useSelector((state) => state.theme);
     const { currentUser } = useSelector(state => state.user); 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -84,8 +86,8 @@ const HeaderNarbar = () => {
       </Button>
 
       <div className='flex gap-2 md:order-2'>
-        <Button className='w-12 h-10 hidden sm:inline' color='gray' pill >
-           <FaMoon />
+        <Button className='w-12 h-10 hidden sm:inline' color='gray' pill  onClick={() => dispatch(toggleTheme())}>
+        {theme === 'light' ? <FaSun /> : <FaMoon />}
         </Button>
 
         {currentUser ? (
