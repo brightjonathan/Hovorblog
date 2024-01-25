@@ -1,7 +1,8 @@
 import express from 'express';
 import {
     signup,
-    signin
+    signin,
+    google
 } from '../controller/user.controller.js';
 const userRouter = express.Router();
 
@@ -9,7 +10,7 @@ const userRouter = express.Router();
 userRouter.post('/signup', signup);
 userRouter.post('/signin', signin);
 // userRouter.get('/signout', signout);
-// userRouter.post('/google', google);
+userRouter.post('/google', google);
 
 export default userRouter;
 
