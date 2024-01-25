@@ -86,6 +86,24 @@ export const signin = asyncHandler(async (req, res, next)=>{
 });
 
 
+//@desc      SIGNOUT funct...
+//@route    GET /api/auth/signout
+//@access    public
+export const signout = asyncHandler(async (req, res, next)=>{
+  try {
+      res.cookie("access_token", "", {
+          httpOnly: true,
+          expires: new Date(0),  //expires now
+          sameSite: "none",
+          secure: true,
+      })
+      .status(200).json({message: "signout successfull"});
+  } catch (error) {
+      next(error)
+  }
+});
+
+
 
 
 //@desc      signing with google funct...
