@@ -8,6 +8,8 @@ import HeaderNarbar from './Component/HeaderNarbar';
 import Signup from './Pages/Auth/Signup';
 import Signin from './Pages/Auth/Signin';
 import Footer1 from './Component/Footer';
+import PrivateRoute from './Component/PrivateRoute';
+import Dashboard from './Pages/Dashboard';
 
 
 const App = () => {
@@ -20,9 +22,18 @@ const App = () => {
       <Route path='/' element={<Home />} />
       <Route path='/sign-up' element={<Signup />} /> 
       <Route path='/sign-in' element={<Signin/>} />
+
+      {/* private route for users */}
+      <Route element={<PrivateRoute/>}>
+        <Route path='/dashboard' element={<Dashboard/>} />
+      </Route>
+
+
+
       </Routes>
       
       <Footer1/>
+      
     </div>
   )
 };
