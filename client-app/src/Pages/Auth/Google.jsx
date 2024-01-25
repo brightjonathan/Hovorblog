@@ -37,10 +37,10 @@ const Google = () => {
         dispatch(signInSuccess(data));
         navigate('/');
       } else {
-        console.error('Error during Google Sign-In:', res.status, res.statusText);
+        console.error('Error during Google Sign-In:', res.status, res.statusText); 
       }
     } catch (error) {
-      console.error('An error occurred during Google Sign-In:', error);
+      console.error('An error occurred during Google Sign-In:', error);    
     }
   };
 
