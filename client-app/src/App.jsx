@@ -12,6 +12,7 @@ import PrivateRoute from './Component/PrivateRoute';
 import Dashboard from './Pages/Dashboard';
 
 
+
 const App = () => {
   return (
     <div>
@@ -25,15 +26,13 @@ const App = () => {
 
       {/* private route for users */}
       <Route element={<PrivateRoute/>}>
-        <Route path='/dashboard' element={<Dashboard/>} />
+        <Route path='/dashboard' element={<Dashboard/>} /> 
       </Route>
-
-
 
       </Routes>
       
       <Footer1/>
-      
+
     </div>
   )
 };
