@@ -53,6 +53,15 @@ const DashSidebar = () => {
             >
               Profile
             </Sidebar.Item>
+            <Sidebar.Item
+            className="mt-3"
+            active={tab === 'edit-profile'}
+            icon={HiUser}
+            labelColor='dark'
+            as='div'
+            >
+              Edit profile
+            </Sidebar.Item>
           </Link>
        </Sidebar.ItemGroup>
       </Sidebar.Items>

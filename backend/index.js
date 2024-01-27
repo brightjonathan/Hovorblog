@@ -16,10 +16,16 @@ import profileRouter from "./routes/profile.route.js";
 db();
 dotenv.config();
 
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+};
+
 const app = express();
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(helmet());
 app.use(morgan("common"));
 

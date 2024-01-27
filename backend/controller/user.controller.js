@@ -67,6 +67,7 @@ export const signin = asyncHandler(async (req, res, next)=>{
     const validPassword = bcryptjs.compareSync(password, userExit.password);
     if(!validPassword) return next(errorHandler(401, 'wrong credentail'));
     const token = jwt.sign({id: userExit._id}, process.env.JWT_SECRET);
+    //console.log(token);
 
      //hiding the password 
      const {password: pass, ...rest } = userExit._doc; 

@@ -27,12 +27,12 @@ const userSchema  = new mongoose.Schema({
     },
     phone: {
         type: String,
-        default: "+234",
+        default: "+234 (0) 9123 456 789",
       },
       bio: {
         type: String,
-        maxLength: [250, "Bio must not be more than 250 characters"],
-        default: "bio",
+        maxLength: [500, "Bio must not be more than 500 characters"],
+        default: "Hovor blog can cover a wide range of topics, including personal experiences, hobbies, interests, professional insights, news, and more.",
       },
       isAdmin: {
         type: Boolean,

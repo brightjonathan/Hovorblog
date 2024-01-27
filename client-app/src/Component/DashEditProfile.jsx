@@ -14,6 +14,13 @@ import { CircularProgressbar } from 'react-circular-progressbar';
  import 'react-circular-progressbar/dist/styles.css';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
+import { 
+    updateProfileFailure, 
+    updateProfileStart, 
+    updateProfileSuccess 
+} from '../Redux/User/AuthSlice';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 const DashEditProfile = () => {
 
@@ -38,6 +45,7 @@ const DashEditProfile = () => {
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
   const [updateUserError, setUpdateUserError] = useState(null);
   const [formData, setFormData] = useState(initialState);
+  const [loading, setLoading] = useState(false);
   
 
   const handleImageChange = (e) => {
@@ -72,9 +80,10 @@ const DashEditProfile = () => {
         setImageFileUploadProgress(progress.toFixed(0));
       },
       (error) => {
-        setImageFileUploadError(
-          'Could not upload image (File must be less than 2MB)'
-        );
+        toast.error('Could not upload image (File must be less than 2MB)')
+        // setImageFileUploadError(
+        //   'Could not upload image (File must be less than 2MB)'
+        // );
         setImageFileUploadProgress(null);
         setImageFile(null);
         setImageFileUrl(null);
@@ -94,10 +103,51 @@ const DashEditProfile = () => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setUpdateUserError(null);
+    setUpdateUserSuccess(null);
+    if (Object.keys(formData).length === 0) {
+      toast.error('No changes made');
+      return;
+    }
+    if (imageFileUploading) {
+      toast.error('Please wait for image to upload');
+      return;
+    }
+    try {
+        setLoading(true);
+        dispatch(updateProfileStart())
+      const res = await fetch(`${API_BASE_URL}/api/profile/updateprofile/${currentUser._id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      setLoading(false);
+      if (!res.ok) {
+        dispatch(updateProfileFailure(data.message))
+        setLoading(false);
+        toast.error(data.message);
+      } else {
+        dispatch(updateProfileSuccess(data));
+        setFormData(data)
+        toast.success("User's profile updated successfully");
+      }
+    } catch (error) {
+        setLoading(false);
+        dispatch(updateProfileFailure(error.message));
+      //setUpdateUserError(error.message);
+    }
+  };
+
   return (
     <div className='max-w-lg mx-auto p-3 w-full'>
     <h1 className='my-7 text-center font-semibold text-3xl'>Update Profile</h1>
-    <form className='flex flex-col gap-4'>
+    <form className='flex flex-col gap-4' onSubmit={handleSubmit} >
       <input
         type='file'
         accept='image/*'
@@ -175,8 +225,9 @@ const DashEditProfile = () => {
         type='submit'
         gradientDuoTone='purpleToBlue'
         outline
+        disabled={loading || imageFileUploading}
       >
-        Update
+        {loading ? 'Loading...' : 'Update'}
       </Button>
     </form>
   </div>
