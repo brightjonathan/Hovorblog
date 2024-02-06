@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Google from './Google';
 import { toast } from "react-toastify";
 import LoaderSpinner from '../../Component/LoaderSpinner';
+import {useDispatch} from 'react-redux';
+import { signInSuccess, signInFailure, signInStart } from '../../Redux/User/AuthSlice';
 
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
@@ -19,6 +21,7 @@ const initialState = {
 const Signup = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState(initialState);
   const [loading, setLoading] = useState(false);
@@ -73,40 +76,39 @@ const Signup = () => {
       return Object.keys(newErrors).length === 0;
     };
 
-    
+
     const handleSubmit = async (e) => {
       e.preventDefault();
-  
-      if (validateForm()) {
-       
+
+      if(validateForm()){
+
         try {
-          setLoading(true);
-          const res = await fetch(`${API_BASE_URL}/api/auth/signup`, {
-            method: 'POST',
-            headers: { 
-              'Content-Type': 'application/json' 
-            },
-            body: JSON.stringify(formData),
-          });
-          const data = await res.json();
-          if (data.success === false) {
-            toast.error(data.message);
-            setLoading(false);
-            return;
-          }
+        setLoading(true);
+        const res = await fetch('http://localhost:4000/api/auth/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+        const data = await res.json();
+        //console.log(data);
+        if (data.success === false) {
           setLoading(false);
-          if(res.ok) {
-            navigate('/sign-in');
-            toast.success("signup successfully");
-          }
-        } catch (error) {
-          toast.error(error.message);
-          setLoading(false);
+          toast.error(<p>{data.message}</p>);
+          return;
         }
-    
+        setLoading(false);
+        navigate('/sign-in');
+        toast.success(<p>signin successfully</p>);
+      } catch (error) {
+        setLoading(false);
+        toast.error(<p>{data.message}</p>);
       }
-      
+    }
     };
+
+    
   
     const handleChange = (e) => {
       setFormData({...formData, [e.target.name]: e.target.value.trim()});

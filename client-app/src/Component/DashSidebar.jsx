@@ -9,7 +9,6 @@ import {
   HiChartPie,
 } from 'react-icons/hi';
 import { Link, useLocation } from 'react-router-dom';
-import { signInStart, signInFailure} from '../Redux/User/AuthSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -53,7 +52,9 @@ const DashSidebar = () => {
             >
               Profile
             </Sidebar.Item>
-            <Sidebar.Item
+          </Link>
+          <Link to='/dashboard?tab=edit-profile'>
+          <Sidebar.Item
             className="mt-3"
             active={tab === 'edit-profile'}
             icon={HiUser}

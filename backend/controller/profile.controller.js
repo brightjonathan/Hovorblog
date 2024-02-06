@@ -8,9 +8,9 @@ import {errorHandler} from '../middleware/error.js';
 //@access    public
 export const updatedUser = asyncHandler(async (req, res, next)=>{
 
-  if (req.user.id !== req.params.userId) {
-    return next(errorHandler(403, 'You are not allowed to update this user'));
-  }
+  // if (req.user.id !== req.params.userId) {
+  //   return next(errorHandler(403, 'You are not allowed to update this user'));
+  // }
 
   if (req.body.username) {
     
@@ -27,9 +27,9 @@ export const updatedUser = asyncHandler(async (req, res, next)=>{
     }
   }
 
-    if(req.body.bio.length < 7 || req.body.bio.length > 500){
-      errorHandler(400, 'Bio must be between 7 and 500 characters')
-    }
+    // if(req.body.bio.length < 7 || req.body.bio.length > 500){
+    //   errorHandler(400, 'Bio must be between 7 and 500 characters')
+    // }
 
 
   try {

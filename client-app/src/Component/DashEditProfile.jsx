@@ -24,7 +24,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 const DashEditProfile = () => {
 
-    const filePickerRef = useRef();
+    const filePickerRef = useRef(null);
     const dispatch = useDispatch();
 
   const { currentUser} = useSelector((state) => state.user);
@@ -34,125 +34,133 @@ const DashEditProfile = () => {
     phone: currentUser?.phone,
     bio: currentUser?.bio,
     photo: currentUser?.photo,
+  };
+
+
+const [formData, setFormData] = useState(initialState);
+const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
+const [imageFileUploadError, setImageFileUploadError] = useState(null);
+const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
+const [updateUserError, setUpdateUserError] = useState(null);
+const [imageFileUploading, setImageFileUploading] = useState(false);
+const [fileUploadError, setFileUploadError] = useState(false);
+const [imageFile, setImageFile] = useState(null);
+const [imageFileUrl, setImageFileUrl] = useState(null);
+const [loading, setLoading] = useState(false);
+
+
+const handleImageChange = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    setImageFile(file);
+    setImageFileUrl(URL.createObjectURL(file));
+  }
+};
+
+useEffect(() => {
+  if (imageFile) {
+    uploadImage();
+  }
+}, [imageFile]);
+
+
+const uploadImage = async () => {
+
+  setImageFileUploading(true);
+  setImageFileUploadError(null);
+  const storage = getStorage(app);
+  const fileName = new Date().getTime() + imageFile.name;
+  const storageRef = ref(storage, fileName);
+  const uploadTask = uploadBytesResumable(storageRef, imageFile);
+  uploadTask.on(
+    'state_changed',
+    (snapshot) => {
+      const progress =
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+      setImageFileUploadProgress(progress.toFixed(0));
+    },
+    (error) => {
+      toast.error('Could not upload image (File must be less than 2MB)')
+      // setImageFileUploadError(
+      //   'Could not upload image (File must be less than 2MB)'
+      // );
+      console.log(error.message);
+      setImageFileUploadProgress(null);
+      setImageFile(null);
+      setImageFileUrl(null);
+      setImageFileUploading(false);
+    },
+    () => {
+      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        setImageFileUrl(downloadURL);
+        setFormData({ ...formData, photo: downloadURL });
+        console.log({ ...formData, profilePicture: downloadURL });
+        setImageFileUploading(false);
+      });
+    }
+  );
 };
 
 
-  const [imageFile, setImageFile] = useState(null);
-  const [imageFileUrl, setImageFileUrl] = useState(null);
-  const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
-  const [imageFileUploadError, setImageFileUploadError] = useState(null);
-  const [imageFileUploading, setImageFileUploading] = useState(false);
-  const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
-  const [updateUserError, setUpdateUserError] = useState(null);
-  const [formData, setFormData] = useState(initialState);
-  const [loading, setLoading] = useState(false);
-  
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImageFile(file);
-      setImageFileUrl(URL.createObjectURL(file));
-    }
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-  useEffect(() => {
-    if (imageFile) {
-      uploadImage();
-    }
-  }, [imageFile]);
+  setUpdateUserError(null);
+  setUpdateUserSuccess(null);
+  if (Object.keys(formData).length === 0) {
+    toast.error('No changes made');
+    return;
+  }
 
+  if (imageFileUploading) {
+    toast.error('Please wait for image to upload');
+    return;
+  }
 
-  const uploadImage = async () => {
-
-    setImageFileUploading(true);
-    setImageFileUploadError(null);
-    const storage = getStorage(app);
-    const fileName = new Date().getTime() + imageFile.name;
-    const storageRef = ref(storage, fileName);
-    const uploadTask = uploadBytesResumable(storageRef, imageFile);
-    uploadTask.on(
-      'state_changed',
-      (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
-        setImageFileUploadProgress(progress.toFixed(0));
+  try {
+      setLoading(true);
+      dispatch(updateProfileStart())
+    const res = await fetch(`${API_BASE_URL}/api/profile/updateprofile/${currentUser._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
       },
-      (error) => {
-        toast.error('Could not upload image (File must be less than 2MB)')
-        // setImageFileUploadError(
-        //   'Could not upload image (File must be less than 2MB)'
-        // );
-        setImageFileUploadProgress(null);
-        setImageFile(null);
-        setImageFileUrl(null);
-        setImageFileUploading(false);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setImageFileUrl(downloadURL);
-          setFormData({ ...formData, profilePicture: downloadURL });
-          setImageFileUploading(false);
-        });
-      }
-    );
-  };
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    setUpdateUserError(null);
-    setUpdateUserSuccess(null);
-    if (Object.keys(formData).length === 0) {
-      toast.error('No changes made');
-      return;
-    }
-    if (imageFileUploading) {
-      toast.error('Please wait for image to upload');
-      return;
-    }
-    try {
-        setLoading(true);
-        dispatch(updateProfileStart())
-      const res = await fetch(`${API_BASE_URL}/api/profile/updateprofile/${currentUser._id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    setLoading(false);
+    if (!res.ok) {
+      dispatch(updateProfileFailure(data.message))
       setLoading(false);
-      if (!res.ok) {
-        dispatch(updateProfileFailure(data.message))
-        setLoading(false);
-        toast.error(data.message);
-      } else {
-        dispatch(updateProfileSuccess(data));
-        setFormData(data)
-        toast.success("User's profile updated successfully");
-      }
-    } catch (error) {
-        setLoading(false);
-        dispatch(updateProfileFailure(error.message));
-      //setUpdateUserError(error.message);
+      toast.error(data.message);
+    } else {
+      dispatch(updateProfileSuccess(data));
+      setFormData(data)
+      console.log(data);
+      toast.success("profile updated successfully");
     }
-  };
+  } catch (error) {
+      setLoading(false);
+      dispatch(updateProfileFailure(error.message));
+    toast.error(error.message);
+  }
+};
 
-  return (
+const handleChange = (e) => {
+  setFormData({ ...formData, [e.target.id]: e.target.value });
+};
+
+return (
     <div className='max-w-lg mx-auto p-3 w-full'>
     <h1 className='my-7 text-center font-semibold text-3xl'>Update Profile</h1>
     <form className='flex flex-col gap-4' onSubmit={handleSubmit} >
       <input
         type='file'
         accept='image/*'
-         onChange={handleImageChange}
-         ref={filePickerRef}
+        onChange={handleImageChange}
+        ref={filePickerRef}
         hidden
       />
       <div
@@ -161,8 +169,8 @@ const DashEditProfile = () => {
       >
         {imageFileUploadProgress && (
           <CircularProgressbar
-            value={imageFileUploadProgress || 0}
-            text={`${imageFileUploadProgress}%`}
+          value={imageFileUploadProgress || 0}
+          text={`${imageFileUploadProgress}%`}
             strokeWidth={5}
             styles={{
               root: {
@@ -191,8 +199,8 @@ const DashEditProfile = () => {
         />
       </div>
       {imageFileUploadError && (
-        <Alert color='failure'>{imageFileUploadError}</Alert>
-      )}
+          <Alert color='failure'>{imageFileUploadError}</Alert>
+        )}
       <TextInput
         type='text'
         id='username'
@@ -200,13 +208,6 @@ const DashEditProfile = () => {
         defaultValue={currentUser?.username}
         onChange={handleChange}
       />
-      {/* <TextInput
-        type='text'
-        id='title'
-        placeholder='your title'
-        defaultValue={currentUser.username}
-        onChange={handleChange}
-      /> */}
       <TextInput
         type='text'
         id='phone'
@@ -235,6 +236,4 @@ const DashEditProfile = () => {
 }
 
 export default DashEditProfile;
-
-
 

@@ -21,6 +21,10 @@ export const signup = asyncHandler(async (req, res, next)=>{
     if(password.length < 6) return next(errorHandler(400, 'password must be up to 6 character'));
 
     //checking if users already exist...
+    const usernameExist = await User.findOne({username});
+    if(usernameExist) return next(errorHandler(400, 'username already been taken'));
+
+    //checking if users already exist...
     const userExist = await User.findOne({email});
     if(userExist) return next(errorHandler(400, 'user already been registered'));
     
@@ -35,7 +39,7 @@ export const signup = asyncHandler(async (req, res, next)=>{
     const token = jwt.sign({id: createUser._id}, process.env.JWT_SECRET);
 
     try {
-        if(createUser) return res.cookie('access_token', token, 
+        if(createUser) return res.cookie('access_token_to_hovorblog', token, 
         { 
             httpOnly: true, 
             sameSite: "none",
@@ -49,11 +53,10 @@ export const signup = asyncHandler(async (req, res, next)=>{
 });
 
 
-
 //@desc      SIGNIN funct...
 //@route    POST /api/auth/signin
 //@access    public
-export const signin = asyncHandler(async (req, res, next)=>{
+export const signin = asyncHandler(async(req, res, next)=>{
     const {email, password} = req.body;
 
     //validating the input fields
@@ -67,14 +70,13 @@ export const signin = asyncHandler(async (req, res, next)=>{
     const validPassword = bcryptjs.compareSync(password, userExit.password);
     if(!validPassword) return next(errorHandler(401, 'wrong credentail'));
     const token = jwt.sign({id: userExit._id}, process.env.JWT_SECRET);
-    //console.log(token);
 
      //hiding the password 
      const {password: pass, ...rest } = userExit._doc; 
 
     try {
          if (userExit && validPassword) {
-            res.cookie("access_token", token, {
+            res.cookie("access_token_to_hovorblog", token, {
                 httpOnly: true,
                 sameSite: "none",
                 secure: true,
@@ -82,8 +84,9 @@ export const signin = asyncHandler(async (req, res, next)=>{
             .status(200).json(rest);
         }
     } catch (error) {
-        next(error)
+        next(error  )
     }
+
 });
 
 
@@ -91,19 +94,18 @@ export const signin = asyncHandler(async (req, res, next)=>{
 //@route    GET /api/auth/signout
 //@access    public
 export const signout = asyncHandler(async (req, res, next)=>{
-  try {
-      res.cookie("access_token", "", {
-          httpOnly: true,
-          expires: new Date(0),  //expires now
-          sameSite: "none",
-          secure: true,
-      })
-      .status(200).json({message: "signout successfull"});
-  } catch (error) {
-      next(error)
-  }
+    try {
+        res.cookie("access_token_to_hovorblog", "", {
+            httpOnly: true,
+            expires: new Date(0),  //expires now
+            sameSite: "none",
+            secure: true,
+        })
+        .status(200).json({message: "signout successfull"});
+    } catch (error) {
+        next(error)
+    }
 });
-
 
 
 
@@ -120,7 +122,7 @@ export const google = asyncHandler(async(req, res, next)=>{
           const token = jwt.sign({ id: userExit._id }, process.env.JWT_SECRET);
           const { password: pass, ...rest } = userExit._doc;
           res
-            .cookie('access_token', token, { httpOnly: true })
+            .cookie('access_token_to_hovorblog', token, { httpOnly: true })
             .status(200)
             .json(rest);
         } else {
@@ -142,7 +144,7 @@ export const google = asyncHandler(async(req, res, next)=>{
           await newUser.save();
           const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
           const { password: pass, ...rest } = newUser._doc;
-          res.cookie('access_token', token,
+          res.cookie('access_token_to_hovorblog', token,
             { 
                 httpOnly: true,
                 sameSite: "none",
@@ -168,5 +170,3 @@ function generateUsernameFromEmail(email) {
       return "defaultUsername";
     }
 };
-
-
