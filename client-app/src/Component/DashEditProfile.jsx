@@ -16,6 +16,7 @@ import {
     updateProfileStart, 
     updateProfileSuccess 
 } from '../Redux/User/AuthSlice';
+import { Link } from 'react-router-dom';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
@@ -227,6 +228,18 @@ return (
       >
         {loading ? 'Loading...' : 'Update'}
       </Button>
+
+      {currentUser.isAdmin && (
+        <Link to={'/create-post'} >
+        <Button
+        type='button'
+        gradientDuoTone='purpleToPink'
+        className='w-full'
+        >
+          create a post
+        </Button>
+        </Link>
+      )}
     </form>
   </div>
   )

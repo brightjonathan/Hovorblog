@@ -10,6 +10,8 @@ import Signin from './Pages/Auth/Signin';
 import Footer1 from './Component/Footer';
 import PrivateRoute from './Component/PrivateRoute';
 import Dashboard from './Pages/Dashboard';
+import CreatePost from './Pages/CreatePost';
+import AdminPrivateRoute from './Component/AdminPrivateRoute';
 
 
 
@@ -28,6 +30,11 @@ const App = () => {
       <Route element={<PrivateRoute/>}>
         <Route path='/dashboard' element={<Dashboard/>} /> 
       </Route>
+
+     {/* Admin private route  */}
+     <Route element={<AdminPrivateRoute/>}>
+       <Route path='/create-post' element={<CreatePost />}/>
+     </Route>
 
       </Routes>
       
