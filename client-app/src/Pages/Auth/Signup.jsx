@@ -95,15 +95,15 @@ const Signup = () => {
         //console.log(data);
         if (data.success === false) {
           setLoading(false);
-          toast.error(<p>{data.message}</p>);
+          toast.error(data.message);
           return;
         }
         setLoading(false);
         navigate('/sign-in');
-        toast.success(<p>signin successfully</p>);
+        toast.success('signin successfully');
       } catch (error) {
         setLoading(false);
-        toast.error(<p>{data.message}</p>);
+        toast.error('data.message');
       }
     }
     };

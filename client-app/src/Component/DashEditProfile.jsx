@@ -1,6 +1,5 @@
 import { Alert, Button, Modal, ModalBody, TextInput , Textarea} from 'flowbite-react';
 import {useRef, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from "react-toastify";
 import {
@@ -11,9 +10,7 @@ import {
   } from 'firebase/storage';
 import {app} from '../Firebase/FirebaseConfig';
 import { CircularProgressbar } from 'react-circular-progressbar';
- import 'react-circular-progressbar/dist/styles.css';
-import { HiOutlineExclamationCircle } from 'react-icons/hi';
-import { Link } from 'react-router-dom';
+import 'react-circular-progressbar/dist/styles.css';
 import { 
     updateProfileFailure, 
     updateProfileStart, 
@@ -95,7 +92,7 @@ const uploadImage = async () => {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
         setImageFileUrl(downloadURL);
         setFormData({ ...formData, photo: downloadURL });
-        console.log({ ...formData, profilePicture: downloadURL });
+        //console.log({ ...formData, photo: downloadURL });
         setImageFileUploading(false);
       });
     }
@@ -122,7 +119,7 @@ const handleSubmit = async (e) => {
   try {
       setLoading(true);
       dispatch(updateProfileStart())
-    const res = await fetch(`${API_BASE_URL}/api/profile/updateprofile/${currentUser._id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/profile/updateprofile/${currentUser._id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -138,13 +135,13 @@ const handleSubmit = async (e) => {
     } else {
       dispatch(updateProfileSuccess(data));
       setFormData(data)
-      console.log(data);
+      //console.log(data);
       toast.success("profile updated successfully");
     }
   } catch (error) {
       setLoading(false);
       dispatch(updateProfileFailure(error.message));
-    toast.error(error.message);
+      toast.error(error.message);
   }
 };
 
@@ -236,4 +233,5 @@ return (
 }
 
 export default DashEditProfile;
+
 

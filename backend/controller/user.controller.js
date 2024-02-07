@@ -69,7 +69,7 @@ export const signin = asyncHandler(async(req, res, next)=>{
     //checking if password is correct
     const validPassword = bcryptjs.compareSync(password, userExit.password);
     if(!validPassword) return next(errorHandler(401, 'wrong credentail'));
-    const token = jwt.sign({id: userExit._id}, process.env.JWT_SECRET);
+    const token = jwt.sign({id: userExit._id, isAdmin: userExit.isAdmin}, process.env.JWT_SECRET);
 
      //hiding the password 
      const {password: pass, ...rest } = userExit._doc; 
@@ -119,7 +119,7 @@ export const google = asyncHandler(async(req, res, next)=>{
 
         const userExit = await User.findOne({ email: req.body.email });
         if (userExit) {
-          const token = jwt.sign({ id: userExit._id }, process.env.JWT_SECRET);
+          const token = jwt.sign({ id: userExit._id, isAdmin: userExit.isAdmin }, process.env.JWT_SECRET);
           const { password: pass, ...rest } = userExit._doc;
           res
             .cookie('access_token_to_hovorblog', token, { httpOnly: true })
@@ -142,7 +142,7 @@ export const google = asyncHandler(async(req, res, next)=>{
             photo: req.body.photo,
           });
           await newUser.save();
-          const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+          const token = jwt.sign({ id: newUser._id, isAdmin: newUser.isAdmin }, process.env.JWT_SECRET);
           const { password: pass, ...rest } = newUser._doc;
           res.cookie('access_token_to_hovorblog', token,
             { 

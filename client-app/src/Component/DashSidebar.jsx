@@ -55,7 +55,7 @@ const DashSidebar = () => {
           </Link>
           <Link to='/dashboard?tab=edit-profile'>
           <Sidebar.Item
-            className="mt-3"
+            // className="mt-3"
             active={tab === 'edit-profile'}
             icon={HiUser}
             labelColor='dark'

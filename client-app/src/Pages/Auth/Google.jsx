@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {FcGoogle} from 'react-icons/fc';
 import { useDispatch } from 'react-redux';
 import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
@@ -56,3 +56,6 @@ const Google = () => {
 }
 
 export default Google;
+
+
+
