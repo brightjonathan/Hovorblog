@@ -3,7 +3,47 @@
 @tailwind utilities;
 
 
-:root {
+
+body {
+  height: 100vh;
+}
+
+.ql-editor {
+  font-size: 1.05rem;
+}
+
+.post-content p {
+  margin-bottom: 0.5rem;
+}
+
+.post-content h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: sans-serif;
+  margin: 1.5rem 0;
+}
+
+.post-content h2 {
+  font-size: 1.4rem;
+  font-family: sans-serif;
+  margin: 1.5rem 0;
+}
+
+.post-content a {
+  color: rgb(73, 149, 199);
+  text-decoration: none;
+}
+
+.post-content a:hover {
+  text-decoration: underline;
+}
+
+.dark .post-content a {
+  color: red;
+}
+
+
+/* :root {
   --nav-width: 68px;
   --header-height: 45px;
 
@@ -31,12 +71,6 @@ section {
   padding: 4rem 0;
 }
 
-/* .container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 20px;
-} */
-
 .--pad {
   max-width: 100%;
   margin: 0 auto;
@@ -45,7 +79,7 @@ section {
 
 .header {
   padding-top: 2rem;
-}
+} */
 
 
 

@@ -32,8 +32,8 @@ const App = () => {
       </Route>
 
      {/* Admin private route  */}
-     <Route element={<AdminPrivateRoute/>}>
-       <Route path='/create-post' element={<CreatePost />}/>
+     <Route element={<AdminPrivateRoute/>} >
+       <Route path='/create-post' element={<CreatePost />} />
      </Route>
 
       </Routes>
