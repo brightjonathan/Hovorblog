@@ -10,6 +10,8 @@ import dotenv from 'dotenv';
 import db from './Config/db.js';
 import userRouter from "./routes/user.route.js";
 import profileRouter from "./routes/profile.route.js";
+import postrouter from "./routes/post.route.js";
+
 
 
 //connections to database
@@ -37,6 +39,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 //for all routes end-points
 app.use('/api/auth', userRouter);
 app.use('/api/profile', profileRouter);
+app.use('/api/post/', postrouter )
 
 
 //local host connection 
