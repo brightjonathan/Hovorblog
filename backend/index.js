@@ -25,9 +25,10 @@ const corsOptions = {
 };
 
 const app = express();
-app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 app.use(cookieParser());
-app.use(cors(corsOptions));
+app.use(express.urlencoded({extended: false}));
+app.use(cors());
 app.use(helmet());
 app.use(morgan("common"));
 

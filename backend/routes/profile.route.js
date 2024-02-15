@@ -1,12 +1,12 @@
 import express from 'express';
 const userProfile = express.Router();
-import { VerifyUserToken} from '../middleware/verify.user.js';
+import {verifyToken} from '../middleware/verify.user.js';
 import { 
     updatedUser
 } from '../controller/profile.controller.js';
 
 //ALL profile routes
-userProfile.patch('/updateprofile/:userId', updatedUser);
+userProfile.patch('/updateprofile/:userId', verifyToken, updatedUser);
 
 export default userProfile;
 

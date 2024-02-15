@@ -84,7 +84,7 @@ const Signup = () => {
 
         try {
         setLoading(true);
-        const res = await fetch('http://localhost:4000/api/auth/signup', {
+        const res = await fetch('/api/auth/signup', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -108,8 +108,6 @@ const Signup = () => {
     }
     };
 
-    
-  
     const handleChange = (e) => {
       setFormData({...formData, [e.target.name]: e.target.value.trim()});
     };

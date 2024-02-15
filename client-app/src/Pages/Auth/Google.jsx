@@ -6,8 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { app } from '../../Firebase/FirebaseConfig';
 import { signInSuccess } from '../../Redux/User/AuthSlice';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
-
 const Google = () => {
 
   const dispatch = useDispatch();
@@ -20,7 +18,7 @@ const Google = () => {
   
       const result = await signInWithPopup(auth, provider);
   
-      const res = await fetch(`${API_BASE_URL}/api/auth/google`, {
+      const res = await fetch('/api/auth/google', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -10,9 +10,10 @@ export const createpost = asyncHandler(async (req, res, next)=>{
 
     const {title, content } = req.body;
 
-    if (!req.isAdmin) {
+    if (!req.user.isAdmin) {
         return next(errorHandler(403, 'You are not allowed to create a post'));
-      }
+    }
+
       if (!title || !content) {
         return next(errorHandler(400, 'Please provide all required fields'));
       }
@@ -27,7 +28,7 @@ export const createpost = asyncHandler(async (req, res, next)=>{
         userId: req.user.id,
       });
       try {
-        const savedPost = await newPost.save();
+        const savedPost = await newPost.save();   
         res.status(201).json(savedPost);
       } catch (error) {
         next(error);

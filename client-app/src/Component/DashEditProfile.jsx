@@ -120,7 +120,7 @@ const handleSubmit = async (e) => {
   try {
       setLoading(true);
       dispatch(updateProfileStart())
-      const res = await fetch(`${API_BASE_URL}/api/profile/updateprofile/${currentUser._id}`, {
+      const res = await fetch(`/api/profile/updateprofile/${currentUser._id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
