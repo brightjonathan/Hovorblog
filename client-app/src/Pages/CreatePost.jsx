@@ -111,8 +111,8 @@ const handleSubmit = async (e)=>{
     });
     const data = await res.json();
     if (!res.ok) {
-      toast.error('Title must be unique');
-      //toast.error(data.message);
+      //toast.error('Title must be unique');
+      toast.error(data.message);
       setLoading(false);
       return;
     }
