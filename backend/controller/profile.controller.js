@@ -26,12 +26,7 @@ export const updatedUser = asyncHandler(async (req, res, next)=>{
       );
     }
   }
-
-    // if(req.body.bio.length < 7 || req.body.bio.length > 500){
-    //   errorHandler(400, 'Bio must be between 7 and 500 characters')
-    // }
-
-
+  
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.userId,

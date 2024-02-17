@@ -12,11 +12,12 @@ import { app } from '../Firebase/FirebaseConfig';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 
 
 const initialState = {
   title: "",
-  categories: "",
+  category: "",
   content: "",
   image: ""
 };
@@ -41,16 +42,16 @@ const CreatePost = () => {
   const [file, setFile] = useState(null);
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
-
+  const [loading, setLoading] = useState(false);
 
 
   const [formData, setFormData] = useState(initialState);
-  const { categories } =  formData;
+  const { category } =  formData;
 
 
   //targetting the category input
 const onCategoryChange = (e) => {
-  setFormData({ ...formData, categories: e.target.value });
+  setFormData({ ...formData, category: e.target.value });
 };
 
 
@@ -96,13 +97,33 @@ const handleUpdloadImage = async () => {
 };
 
 
-const handleSubmit = (e)=>{
+const handleSubmit = async (e)=>{
   e.preventDefault();
 
   try {
-    
+    setLoading(true);
+    const res = await fetch('api/post/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      toast.error('Title must be unique');
+      //toast.error(data.message);
+      setLoading(false);
+      return;
+    }
+    setLoading(false);
+    if (res.ok) {
+      toast.success('published successfully');
+      //navigate(`/post/${data.slug}`);
+    }
   } catch (error) {
-    
+    toast.error(error.message)
+    setLoading(false);
   }
 };
 
@@ -112,15 +133,15 @@ const handleSubmit = (e)=>{
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
           <TextInput
+            required
             type='text'
             placeholder='Title'
-            required
             name='title'
             className='flex-1'
             onChange={handleChange}
           />
-          <Select value={categories} onChange={onCategoryChange} >
-          <option value='uncategorized' >Select a category</option>
+          <Select required value={category} onChange={onCategoryChange} >
+          <option>Select a category</option>
                   {categoryOptions.map((option, index) => (
                     <option value={option || ""} key={index}> {option} </option>
                   ))}
@@ -128,6 +149,7 @@ const handleSubmit = (e)=>{
         </div>
         <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
           <FileInput
+            required
             type='file'
             accept='image/*'
             onChange={(e) => setFile(e.target.files[0])}
@@ -170,7 +192,7 @@ const handleSubmit = (e)=>{
           }}
         />
         <Button type='submit' gradientDuoTone='purpleToPink'>
-          Publish
+           {loading ? (<p>Loading...</p>) : (<p>Publish</p>)}
         </Button>
       </form>
     </div>
@@ -178,3 +200,5 @@ const handleSubmit = (e)=>{
 }
 
 export default CreatePost;  
+
+
