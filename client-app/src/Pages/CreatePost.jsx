@@ -14,8 +14,6 @@ import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from 'react-router-dom';
 
 
-
-
 const initialState = {
   title: "",
   categories: "",
@@ -34,8 +32,6 @@ const categoryOptions = [
   "development",
   "business",
 ];
-
-
 
 
 const CreatePost = () => {
@@ -103,7 +99,6 @@ const handleUpdloadImage = async () => {
 const handleSubmit = (e)=>{
   e.preventDefault();
 
-
   try {
     
   } catch (error) {
@@ -113,7 +108,7 @@ const handleSubmit = (e)=>{
 
   return (
     <div className='p-3 max-w-3xl mx-auto min-h-screen'>
-      <h1 className='text-center text-3xl my-7 font-semibold'>Create a post</h1>
+      <h1 className='text-center text-3xl my-7 font-semibold'> Create a post </h1>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
         <div className='flex flex-col gap-4 sm:flex-row justify-between'>
           <TextInput
