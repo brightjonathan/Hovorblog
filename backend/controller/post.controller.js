@@ -28,7 +28,7 @@ export const createpost = asyncHandler(async (req, res, next)=>{
         userId: req.user.id,
       });
       try {
-        const savedPost = await newPost.save();
+        const savedPost = await newPost.save();   
         res.status(201).json(savedPost);
       } catch (error) {
         next(error);

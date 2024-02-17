@@ -119,7 +119,7 @@ const handleSubmit = async (e)=>{
     setLoading(false);
     if (res.ok) {
       toast.success('published successfully');
-      //navigate(`/post/${data.slug}`);
+      navigate(`/post/${data.slug}`);
     }
   } catch (error) {
     toast.error(error.message)

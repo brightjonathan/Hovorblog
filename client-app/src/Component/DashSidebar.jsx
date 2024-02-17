@@ -8,6 +8,8 @@ import {
   HiAnnotation,
   HiChartPie,
 } from 'react-icons/hi';
+import { MdPostAdd } from "react-icons/md";
+import { FaUserEdit } from "react-icons/fa";
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -57,11 +59,22 @@ const DashSidebar = () => {
           <Sidebar.Item
             // className="mt-3"
             active={tab === 'edit-profile'}
-            icon={HiUser}
+            icon={FaUserEdit}
             labelColor='dark'
             as='div'
             >
               Edit profile
+            </Sidebar.Item>
+          </Link>
+          <Link to='/dashboard?tab=all-posts'>
+          <Sidebar.Item
+            // className="mt-3"
+            active={tab === 'all-posts'}
+            icon={MdPostAdd}
+            labelColor='dark'
+            as='div'
+            >
+              {currentUser.isAdmin ? 'All Admin posts' : 'All User posts'}
             </Sidebar.Item>
           </Link>
        </Sidebar.ItemGroup>

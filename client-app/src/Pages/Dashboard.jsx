@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import DashSidebar from '../Component/DashSidebar';
 import DashProfile from '../Component/DashProfile';
 import DashEditProfile from '../Component/DashEditProfile';
+import DashPosts from '../Component/DashPosts';
 
 
 
@@ -32,7 +33,7 @@ const Dashboard = () => {
      { tab === 'edit-profile' && <DashEditProfile /> }
 
     {/* posts... */}
-    {/* {tab === 'posts' && <DashPosts />} */}
+    {tab === 'all-posts' && <DashPosts />}
     {/* users */}
     {/* {tab === 'users' && <DashUsers />} */}
     {/* comments  */}
