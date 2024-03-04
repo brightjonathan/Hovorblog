@@ -140,7 +140,7 @@ const handleSubmit = async (e)=>{
             className='flex-1'
             onChange={handleChange}
           />
-          <Select required value={category} onChange={onCategoryChange} >
+          <Select required value={category} onChange={onCategoryChange}>
           <option>Select a category</option>
                   {categoryOptions.map((option, index) => (
                     <option value={option || ""} key={index}> {option} </option>
@@ -200,5 +200,18 @@ const handleSubmit = async (e)=>{
 }
 
 export default CreatePost;  
+
+
+
+
+
+
+const a = 9;
+const sq1 = Math.sqrt(5);
+const sq2 = Math.sqrt(5 * (5 + 2 * sq1));
+const areaOfAPentagon = 1/4 * sq2 * a**2;
+console.log('The area of a Pentagon is: ' + areaOfAPentagon.toFixed(2));
+
+
 
 

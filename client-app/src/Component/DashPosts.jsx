@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Modal, Table, Button } from 'flowbite-react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { HiOutlineExclamationCircle } from 'react-icons/hi';
+//import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 
 const DashPosts = () => {
@@ -10,8 +10,8 @@ const DashPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
-  const [showModal, setShowModal] = useState(false);
-  const [postIdToDelete, setPostIdToDelete] = useState('');
+  // const [showModal, setShowModal] = useState(false);
+  // const [postIdToDelete, setPostIdToDelete] = useState('');
 
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const DashPosts = () => {
     {currentUser.isAdmin && userPosts.length > 0 ? (
       <>
         <Table hoverable className='shadow-md'>
-          <Table.Head>
+          <Table.Head >
             <Table.HeadCell>Date updated</Table.HeadCell>
             <Table.HeadCell>Post image</Table.HeadCell>
             <Table.HeadCell>Post title</Table.HeadCell>
