@@ -1,26 +1,28 @@
 import { useEffect, useState } from 'react';
 import { Sidebar } from 'flowbite-react';
-import {
-  HiUser,
-  HiArrowSmRight,
-  HiDocumentText,
-  HiOutlineUserGroup,
-  HiAnnotation,
-  HiChartPie,
-} from 'react-icons/hi';
+import Notiflix from "notiflix";
+import { HiUser, HiChartPie } from 'react-icons/hi';
+import { GoSignOut } from "react-icons/go";
 import { MdPostAdd } from "react-icons/md";
 import { FaUserEdit } from "react-icons/fa";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from "react-toastify";
+import { 
+  signoutUserFailure, 
+  signoutUserStart, 
+  signoutUserSuccess 
+} from '../Redux/User/AuthSlice';
 
 
 
 const DashSidebar = () => {
-
-    const location = useLocation();
-    const dispatch = useDispatch();
-    const { currentUser } = useSelector((state) => state.user);
-    const [tab, setTab] = useState('');
+  
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { currentUser } = useSelector((state) => state.user);
+  const [tab, setTab] = useState('');
 
 
     useEffect(() => {
@@ -30,6 +32,47 @@ const DashSidebar = () => {
         setTab(tabFromUrl);
       }
     }, [location.search]);
+
+
+    const handleSignout = async () =>{
+      try {
+        dispatch(signoutUserStart());
+        const res = await fetch('/api/auth/signout');
+        const data = await res.json();
+        if (data.success === false) {
+          dispatch(signoutUserFailure(data.message));
+          return;
+        }
+          dispatch(signoutUserSuccess(data))
+          toast.success("Sign out successfully");
+          navigate('/sign-in')
+       } catch (error) {
+        dispatch(signoutUserFailure(data));
+       }
+    };
+
+
+    const confirmLoggedout = () => {
+      Notiflix.Confirm.show(
+        "Logout Account!!!",
+        "You are about to Signout from this account!!",
+        "Signout",
+        "Cancel",
+        function okCb() {
+          handleSignout();
+        },
+        function cancelCb() {
+          console.log("Logout Canceled");
+        },
+        {
+          width: "320px",
+          borderRadius: "3px",
+          titleColor: "blue",
+          okButtonBackground: "green",
+          cssAnimationStyle: "zoom",
+        }
+      );
+    };
 
 
   return (
@@ -77,6 +120,12 @@ const DashSidebar = () => {
               {currentUser.isAdmin ? 'All Admin posts' : 'All User posts'}
             </Sidebar.Item>
           </Link>
+
+           <div className='flex m-[1vh]' onClick={confirmLoggedout}>
+            <GoSignOut className='mr-4' size={24}/>
+            <button className='pr-[3vh]'> Sign out </button>
+           </div>
+
        </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>
