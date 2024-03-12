@@ -18,12 +18,6 @@ import postrouter from "./routes/post.route.js";
 db();
 dotenv.config();
 
-const corsOptions = {
-  origin: 'http://localhost:5173',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-};
-
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
@@ -40,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 //for all routes end-points
 app.use('/api/auth', userRouter);
 app.use('/api/profile', profileRouter);
-app.use('/api/post/', postrouter )
+app.use('/api/post/', postrouter );
 
 
 //local host connection 

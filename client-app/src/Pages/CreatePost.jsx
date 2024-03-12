@@ -203,15 +203,3 @@ export default CreatePost;
 
 
 
-
-
-
-const a = 9;
-const sq1 = Math.sqrt(5);
-const sq2 = Math.sqrt(5 * (5 + 2 * sq1));
-const areaOfAPentagon = 1/4 * sq2 * a**2;
-console.log('The area of a Pentagon is: ' + areaOfAPentagon.toFixed(2));
-
-
-
-

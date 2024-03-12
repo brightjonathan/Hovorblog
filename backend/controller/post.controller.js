@@ -10,7 +10,7 @@ export const createpost = asyncHandler(async (req, res, next)=>{
 
     const {title, content } = req.body;
 
-    if (!req.user.isAdmin) {
+    if (!req.user.isAdmin || !req.user) {
         return next(errorHandler(403, 'You are not allowed to create a post'));
     }
 
@@ -92,4 +92,24 @@ export const getPosts = asyncHandler(async (req, res, next)=>{
 
 
 
+//@desc      DELETE funct...
+//@route    DELETE api/post/deletepost/:postId/:userId
+//@access    public
+export const deletePost = asyncHandler(async (req, res, next)=>{
 
+  const UserPost = await Post.findById(req.params.id);
+
+  // if product doesnt exist
+  if (!UserPost)  return next(errorHandler(404, "Post not found"));
+
+  if (!req.user.isAdmin || UserPost.userId !== req.user.id) return next(errorHandler(401, 'User not authorized'));
+
+  try {
+    await Post.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: "Post deleted."});
+ } catch(error) {
+   next(error);
+ };
+
+
+})

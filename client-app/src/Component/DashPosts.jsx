@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import { Modal, Table, Button } from 'flowbite-react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-//import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { toast } from 'react-toastify';
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+
 
 
 const DashPosts = () => {
@@ -10,8 +13,7 @@ const DashPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
-  // const [showModal, setShowModal] = useState(false);
-  // const [postIdToDelete, setPostIdToDelete] = useState('');
+  const [postIdToDelete, setPostIdToDelete] = useState('');
 
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const DashPosts = () => {
         const data = await res.json();
         if (res.ok) {
           setUserPosts(data.posts);
-          console.log(data.posts);
+          //console.log(data.posts);
           if (data.posts.length < 9) {
             setShowMore(false);
           }
@@ -56,9 +58,78 @@ const DashPosts = () => {
 
 
 
+  //functionality for deleting post
+  // const deletePost = async () =>{
+  //   try {
+
+  //     const userId = currentUser._id;
+  //     const res = await fetch(
+  //       `/api/post/deletepost/${postIdToDelete}/${userId}`,
+  //       {
+  //         method: 'DELETE',
+  //       }
+  //     );
+  //     const data = await res.json();
+  //     if (!res.ok) {
+  //       console.log(data.message);
+  //     } else {
+  //       setUserPosts((prev) =>
+  //         prev.filter((post) => post._id !== postIdToDelete)
+  //       );
+  //     }
+  //    } catch (error) {
+  //     console.log(error.message);
+  //    }
+  // };
+
+
+    //delete func...
+    const delProduct = async (_id) => {
+      
+    try {
+
+      const res = await fetch(
+        `/api/post/deletepost/${_id}`,
+        {
+          method: 'DELETE',
+        }
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        setUserPosts((prev) =>
+          prev.filter((post) => post._id !== _id)
+        );
+      }
+     } catch (error) {
+      console.log(error.message);
+     }
+     
+    };
+  
+    const confirmDelete = (_id) => {
+      confirmAlert({
+        title: "Delete Product",
+        message: "Are you sure you want to delete this product.",
+        buttons: [
+          {
+            label: "Delete",
+            onClick: () => delProduct(_id),
+          },
+          {
+            label: "Cancel",
+            // onClick: () => alert('Click No')
+          },
+        ],
+      });
+    };
+
+
+
   return (
     <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
-    {currentUser.isAdmin && userPosts.length > 0 ? (
+    {currentUser && userPosts.length > 0 ? (
       <>
         <Table hoverable className='shadow-md'>
           <Table.Head >
@@ -69,8 +140,10 @@ const DashPosts = () => {
             <Table.HeadCell>Delete</Table.HeadCell>
             <Table.HeadCell> <span>Edit</span> </Table.HeadCell>
           </Table.Head>
-          {userPosts.map((post, index) => (
-            <Table.Body className='divide-y' key={index}>
+          {userPosts.map((post) => {
+            const {_id} = post;
+            return (
+            <Table.Body className='divide-y' key={_id}>
               <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                 <Table.Cell>
                   {new Date(post.updatedAt).toLocaleDateString()}
@@ -95,8 +168,8 @@ const DashPosts = () => {
                 <Table.Cell>{post.category}</Table.Cell>
                 <Table.Cell>
                   <span
-                    className='font-medium text-red-500 hover:underline cursor-pointer'
-                  >
+                    onClick={() => confirmDelete(_id)}  
+                   className='font-medium text-red-500 hover:underline cursor-pointer' >
                     Delete
                   </span>
                 </Table.Cell>
@@ -110,7 +183,7 @@ const DashPosts = () => {
                 </Table.Cell>
               </Table.Row>
             </Table.Body>
-          ))}
+            )})}
         </Table>
         {showMore && (
           <button
@@ -130,5 +203,6 @@ const DashPosts = () => {
 }
 
 export default DashPosts;
+
 
 
