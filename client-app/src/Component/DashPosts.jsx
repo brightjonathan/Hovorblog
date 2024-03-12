@@ -57,37 +57,10 @@ const DashPosts = () => {
   };
 
 
-
-  //functionality for deleting post
-  // const deletePost = async () =>{
-  //   try {
-
-  //     const userId = currentUser._id;
-  //     const res = await fetch(
-  //       `/api/post/deletepost/${postIdToDelete}/${userId}`,
-  //       {
-  //         method: 'DELETE',
-  //       }
-  //     );
-  //     const data = await res.json();
-  //     if (!res.ok) {
-  //       console.log(data.message);
-  //     } else {
-  //       setUserPosts((prev) =>
-  //         prev.filter((post) => post._id !== postIdToDelete)
-  //       );
-  //     }
-  //    } catch (error) {
-  //     console.log(error.message);
-  //    }
-  // };
-
-
     //delete func...
     const delProduct = async (_id) => {
       
     try {
-
       const res = await fetch(
         `/api/post/deletepost/${_id}`,
         {
@@ -110,8 +83,8 @@ const DashPosts = () => {
   
     const confirmDelete = (_id) => {
       confirmAlert({
-        title: "Delete Product",
-        message: "Are you sure you want to delete this product.",
+        title: "Delete Post",
+        message: "Are you sure you want to delete this Post.",
         buttons: [
           {
             label: "Delete",
@@ -176,7 +149,7 @@ const DashPosts = () => {
                 <Table.Cell>
                   <Link
                     className='text-teal-500 hover:underline'
-                    to={`/update-post/${post._id}`}
+                    to={`/update-post/${_id}`}
                   >
                     <span>Edit</span>
                   </Link>
