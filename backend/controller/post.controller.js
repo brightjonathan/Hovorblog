@@ -28,7 +28,7 @@ export const createpost = asyncHandler(async (req, res, next)=>{
         userId: req.user.id,
       });
       try {
-        const savedPost = await newPost.save();   
+        const savedPost = await newPost.save();
         res.status(201).json(savedPost);
       } catch (error) {
         next(error);
@@ -93,11 +93,11 @@ export const getPosts = asyncHandler(async (req, res, next)=>{
 
 
 //@desc      DELETE funct...
-//@route    DELETE api/post/deletepost/:postId/:userId
+//@route    DELETE api/post/deletepost/:id
 //@access    public
 export const deletePost = asyncHandler(async (req, res, next)=>{
 
-  const UserPost = await Post.findById(req.params.id);
+  const UserPost = await Post.findById(req.params.id);  //the require params is the postId not the userId
 
   // if product doesnt exist
   if (!UserPost)  return next(errorHandler(404, "Post not found"));
@@ -113,3 +113,33 @@ export const deletePost = asyncHandler(async (req, res, next)=>{
 
 
 })
+
+//@desc     UPDATE funct...
+//@route    UPDATE api/post/updatepost/:id
+//@access    public
+export const updatePost = asyncHandler(async (req, res, next)=>{
+
+  const UserPost = await Post.findById(req.params.id); //the require params is the postId not the userId
+
+  // if product doesnt exist
+  if (!UserPost)  return next(errorHandler(404, "Post not found"));
+
+  if (!req.user.isAdmin || UserPost.userId !== req.user.id) return next(errorHandler(401, 'User not authorized'));
+
+
+  const updatePost = await Post.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: {
+        title: req.body.title,
+        category: req.body.category,
+        image: req.body.image,
+        content: req.body.content,
+      },
+    },
+    { new: true }
+  )
+
+  res.status(200).json(updatePost);
+  
+});
