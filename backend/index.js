@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 //for all routes end-points
 app.use('/api/auth', userRouter);
 app.use('/api/profile', profileRouter);
-app.use('/api/post/', postrouter );
+app.use('/api/post/', postrouter);
 
 
 //local host connection 
@@ -54,6 +54,8 @@ app.use((err, req, res, next)=>{
       message,
     });
 });
+
+
 
 
 

@@ -70,7 +70,8 @@ const DashPosts = () => {
       const data = await res.json();
       if (!res.ok) {
         //console.log(data.message);
-        toast.success(data.message)
+        //toast.success(data.message)
+        toast.success('post deleted')
       } else {
         setUserPosts((prev) =>
           prev.filter((post) => post._id !== _id)

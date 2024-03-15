@@ -80,8 +80,12 @@ const onCategoryChange = (e) => {
 
 
 const handleChange = (e) => {
-  setFormData({...formData, [e.target.name]: e.target.value.trim()});
+  setFormData({...formData, [e.target.id]: e.target.value});
 };
+
+const handleChange2 = (content, delta, source, editor)=>{
+  setFormData({ ...formData, content: content });
+}
 
 const handleUpdloadImage = async () => {
   try {
@@ -123,6 +127,28 @@ const handleUpdloadImage = async () => {
 
 const handleSubmit = async (e)=>{
   e.preventDefault();
+ 
+  try {
+    const res = await fetch(`/api/post/updatepost/${postId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      toast.error(data.message);
+      return;
+    }
+
+    if (res.ok) {
+      navigate(`/post/${data.slug}`);
+      toast.success('updated successfully');
+    }
+  } catch (error) {
+    toast.error(error.message);
+  }
 
   
 };
@@ -140,7 +166,7 @@ const handleSubmit = async (e)=>{
             value={formData.title}
             type='text'
             placeholder='Title'
-            name='title'
+            id='title'
             className='flex-1'
             onChange={handleChange}
           />
@@ -153,7 +179,6 @@ const handleSubmit = async (e)=>{
         </div>
         <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
           <FileInput
-            required
             type='file'
             accept='image/*'
             onChange={(e) => setFile(e.target.files[0])}
@@ -195,6 +220,7 @@ const handleSubmit = async (e)=>{
           onChange={(value) => {
             setFormData({ ...formData, content: value });
           }}
+          //onChange={handleChange2}
         />
         <Button type='submit' gradientDuoTone='purpleToPink'>
            {loading ? (<p>Loading...</p>) : (<p>Update</p>)}
