@@ -134,7 +134,7 @@ const AllUsers = () => {
                   </Table.Cell>
                   <Table.Cell>
                     <span
-                    onClick={() => confirmDelete(user._id)}  
+                      onClick={() => confirmDelete(user._id)}  
                       className='font-medium text-red-500 hover:underline cursor-pointer'
                     >
                       Delete
