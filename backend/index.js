@@ -11,6 +11,7 @@ import db from './Config/db.js';
 import userRouter from "./routes/user.route.js";
 import profileRouter from "./routes/profile.route.js";
 import postrouter from "./routes/post.route.js";
+import allusers from "./routes/allUsers.route.js";
 
 
 
@@ -34,7 +35,8 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 //for all routes end-points
 app.use('/api/auth', userRouter);
 app.use('/api/profile', profileRouter);
-app.use('/api/post/', postrouter);
+app.use('/api/post', postrouter);
+app.use('/api/users', allusers);
 
 
 //local host connection 

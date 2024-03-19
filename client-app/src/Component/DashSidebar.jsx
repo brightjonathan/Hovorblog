@@ -5,6 +5,7 @@ import { HiUser, HiChartPie } from 'react-icons/hi';
 import { GoSignOut } from "react-icons/go";
 import { MdPostAdd } from "react-icons/md";
 import { FaUserEdit } from "react-icons/fa";
+import { FaClipboardUser } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from "react-toastify";
@@ -81,13 +82,27 @@ const DashSidebar = () => {
        <Sidebar.ItemGroup className='flex flex-col gap-1'>
 
         {currentUser.isAdmin && (
+          <Link to={'/dashboard?tab=admin-dashboard'}>
              <Sidebar.Item
-                active={tab === 'dash' || !tab}
+                active={tab ===  'admin-dashboard'}
                 icon={HiChartPie}
                 as='div'
               >
                 Dashboard
               </Sidebar.Item>
+          </Link>
+             )}
+
+             {currentUser.isAdmin && (
+              <Link to={'/dashboard?tab=all-users'}>
+              <Sidebar.Item
+              active={tab === 'all-users'}
+                icon={FaClipboardUser}
+                as='div'
+              >
+                All Users
+              </Sidebar.Item>
+              </Link>
              )}
 
               <Link to='/dashboard?tab=profile'>
