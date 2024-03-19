@@ -4,7 +4,7 @@ import User from '../model/user.model.js';
 
 
 //@desc      GET funct...
-//@route    GET api/users/alluser
+//@route    GET api/users/allusers
 //@access    Admin(private)
 export const getallusers = asyncHandler(async(req, res, next)=>{
     if (!req.user.isAdmin)  return next(errorHandler(403, 'You are not allowed to see all users'));
