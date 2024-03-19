@@ -5,7 +5,7 @@ import { HiUser, HiChartPie } from 'react-icons/hi';
 import { GoSignOut } from "react-icons/go";
 import { MdPostAdd } from "react-icons/md";
 import { FaUserEdit } from "react-icons/fa";
-import { FaClipboardUser } from "react-icons/fa6";
+import { MdOutlineGroups3 } from "react-icons/md";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from "react-toastify";
@@ -97,7 +97,7 @@ const DashSidebar = () => {
               <Link to={'/dashboard?tab=all-users'}>
               <Sidebar.Item
               active={tab === 'all-users'}
-                icon={FaClipboardUser}
+                icon={MdOutlineGroups3}
                 as='div'
               >
                 All Users

@@ -13,7 +13,7 @@ const DashPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
-  const [postIdToDelete, setPostIdToDelete] = useState('');
+  
 
 
   useEffect(() => {
