@@ -13,6 +13,7 @@ import Dashboard from './Pages/Dashboard';
 import CreatePost from './Pages/CreatePost';
 import AdminPrivateRoute from './Component/AdminPrivateRoute';
 import UpdatePage from './Pages/UpdatePage';
+import PostPage from './Component/PostPage';
 
 
 
@@ -24,8 +25,9 @@ const App = () => {
 
       <Routes>
       <Route path='/' element={<Home />} />
-      <Route path='/sign-up' element={<Signup />} /> 
+      <Route path='/sign-up' element={<Signup />} />
       <Route path='/sign-in' element={<Signin/>} />
+      <Route path='/post/:postslug' element={ <PostPage /> }/>
 
       {/* private route for users */}
       <Route element={<PrivateRoute/>}>
