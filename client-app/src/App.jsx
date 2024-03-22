@@ -14,6 +14,7 @@ import CreatePost from './Pages/CreatePost';
 import AdminPrivateRoute from './Component/AdminPrivateRoute';
 import UpdatePage from './Pages/UpdatePage';
 import PostPage from './Component/PostPage';
+import ScrollToTop from './Component/ScrollToTop';
 
 
 
@@ -22,6 +23,7 @@ const App = () => {
     <div>
       <ToastContainer />
       <HeaderNarbar />
+      <ScrollToTop />
 
       <Routes>
       <Route path='/' element={<Home />} />
