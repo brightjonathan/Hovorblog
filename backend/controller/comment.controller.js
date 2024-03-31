@@ -5,7 +5,7 @@ import Comment from '../model/comment.model.js';
 
 
 //@desc      POST funct...
-//@route    POST api/comments/createcomment
+//@route     POST api/comments/createcomment
 //@access    user(public)
 export const Createcomment = asyncHandler(async (req, res, next)=>{
 
@@ -23,14 +23,21 @@ export const Createcomment = asyncHandler(async (req, res, next)=>{
       
           res.status(200).json(newComment);
         
-
-
     } catch (error) {
         next(error);
     }
-  
-
 });
 
 
+
+ //@desc      GET funct...
+//@route     GET api/comments/getPostComments/:postId
+//@access    user(public)
+export const getPostComments = asyncHandler(async (req, res, next)=>{
+
+      //
+});
+
   
+
+
