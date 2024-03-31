@@ -12,6 +12,7 @@ import userRouter from "./routes/user.route.js";
 import profileRouter from "./routes/profile.route.js";
 import postrouter from "./routes/post.route.js";
 import allusers from "./routes/allUsers.route.js";
+import commentrouter from "./routes/comment.route.js";
 
 
 
@@ -37,6 +38,7 @@ app.use('/api/auth', userRouter);
 app.use('/api/profile', profileRouter);
 app.use('/api/post', postrouter);
 app.use('/api/users', allusers);
+app.use('/api/comments', commentrouter)
 
 
 //local host connection 

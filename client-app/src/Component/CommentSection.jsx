@@ -16,8 +16,36 @@ const CommentSection = ({postId}) => {
 
 
     //handles the submit functionality
-    const handleSubmit = ()=> {
+    const handleSubmit = async (e)=> {
+      e.preventDefault();
+      if (comment.length > 250) {
+        return;
+      }
 
+      try {
+
+        const res = await fetch('/api/comments/createcomment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            content: comment,
+            postId,
+            userId: currentUser._id,
+          }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          setComment('');
+          setCommentError(null);
+          setComments([data, ...comments]);
+          //console.log([data, ...comments]);
+        }
+        
+      } catch (error) {
+        setCommentError(error.message);
+      }
     };
 
   return (
@@ -67,11 +95,11 @@ const CommentSection = ({postId}) => {
             Submit
           </Button>
         </div>
-        {/* {commentError && (
+        {commentError && (
           <Alert color='failure' className='mt-5'>
             {commentError}
           </Alert>
-        )} */}
+        )}
       </form>
       )}
     </div>
