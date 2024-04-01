@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import Comment from './Comment';
 
 const CommentSection = ({postId}) => {
 
@@ -17,6 +18,7 @@ const CommentSection = ({postId}) => {
 
     //handles the submit functionality
     const handleSubmit = async (e)=> {
+
       e.preventDefault();
       if (comment.length > 250) {
         return;
@@ -46,6 +48,30 @@ const CommentSection = ({postId}) => {
         setCommentError(error.message);
       }
     };
+
+
+
+
+    //getting comment
+    useEffect(()=>{
+     
+     const getComments =  async ()=>{
+
+        try {
+        const res = await fetch(`/api/comments/getPostComments/${postId}`);
+        if (res.ok) {
+          const data = await res.json();
+          setComments(data);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+
+     };
+
+     getComments();
+
+    },[])
 
   return (
     <div className='max-w-2xl mx-auto w-full p-3'>
@@ -112,18 +138,12 @@ const CommentSection = ({postId}) => {
               <p>{comments.length}</p>
             </div>
           </div>
-          {/* {comments.map((comment) => (
+          {comments.map((comment) => (
             <Comment
               key={comment._id}
               comment={comment}
-              onLike={handleLike}
-              onEdit={handleEdit}
-              onDelete={(commentId) => {
-                setShowModal(true);
-                setCommentToDelete(commentId);
-              }}
             />
-          ))} */}
+          ))}
         </>
       )}
       {/* <Modal

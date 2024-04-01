@@ -35,7 +35,14 @@ export const Createcomment = asyncHandler(async (req, res, next)=>{
 //@access    user(public)
 export const getPostComments = asyncHandler(async (req, res, next)=>{
 
-      //
+    try {
+        const comments = await Comment.find({ postId: req.params.postId }).sort({
+          createdAt: -1,
+        });
+        res.status(200).json(comments);
+      } catch (error) {
+        next(error);
+      }
 });
 
   
