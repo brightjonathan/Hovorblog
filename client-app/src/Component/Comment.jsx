@@ -20,7 +20,7 @@ const Comment = ({comment}) => {
             const data = await res.json();
             if (res.ok) {
               setUser(data);
-              console.log(data);
+              //console.log(data);
             }
           } catch (error) {
             console.log(error.message);
