@@ -10,6 +10,7 @@ postrouter.delete('/deletepost/:id', verifyToken, deletePost);
 postrouter.patch('/updatepost/:id', verifyToken, updatePost);
 
 
+
 export default postrouter;
 
 
