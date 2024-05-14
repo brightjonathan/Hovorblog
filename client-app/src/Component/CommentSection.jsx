@@ -42,7 +42,7 @@ const CommentSection = ({postId}) => {
           setComment('');
           setCommentError(null);
           setComments([data, ...comments]);
-        }
+        };
         
       } catch (error) {
         setCommentError(error.message);
@@ -71,7 +71,7 @@ const CommentSection = ({postId}) => {
 
      getComments();
 
-    },[])
+    },[]);
 
     //like func...
     const handleLike = async()=>{
@@ -184,6 +184,13 @@ const CommentSection = ({postId}) => {
 }
 
 export default CommentSection;
+
+
+
+
+
+
+
 
 
 
