@@ -4,7 +4,7 @@ import { FaThumbsUp } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Button, Textarea } from 'flowbite-react';
 
-const Comment = ({comment, onLike, onDelete}) => {
+const Comment = ({comment, onLike, onDelete, onEdit}) => {
 
 
     const [user, setUser] = useState({});
@@ -28,6 +28,35 @@ const Comment = ({comment, onLike, onDelete}) => {
         };
         getUser();
       }, [comment]);
+
+
+      //handles the edit functionality
+      const handleEdit = ()=>{
+        setIsEditing(true);
+        setEditedContent(comment.content);
+      }
+
+
+      //handles the save functionality
+      const handleSave = async ()=>{
+        try {
+          const res = await fetch(`/api/comments/editComment/${comment._id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              content: editedContent,
+            }),
+          });
+          if (res.ok) {
+            setIsEditing(false);
+            onEdit(comment, editedContent);
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
 
 
   return (
@@ -60,7 +89,7 @@ const Comment = ({comment, onLike, onDelete}) => {
                 type='button'
                 size='sm'
                 gradientDuoTone='purpleToBlue'
-                // onClick={handleSave}
+               onClick={handleSave}
               >
                 Save
               </Button>
@@ -101,7 +130,7 @@ const Comment = ({comment, onLike, onDelete}) => {
                   <>
                     <button
                       type='button'
-                      // onClick={handleEdit}
+                      onClick={handleEdit}
                       className='text-gray-400 hover:text-blue-500'
                     >
                       Edit

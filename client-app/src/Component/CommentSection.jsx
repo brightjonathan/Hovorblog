@@ -132,6 +132,15 @@ const CommentSection = ({postId}) => {
     };
 
 
+    const handleEdit = async (comment, editedContent) => {
+      setComments(
+        comments.map((c) =>
+          c._id === comment._id ? { ...c, content: editedContent } : c
+        )
+      );
+    };
+
+
 
   return (
     <div className='max-w-2xl mx-auto w-full p-3'>
@@ -162,7 +171,7 @@ const CommentSection = ({postId}) => {
 
       {currentUser && (
         <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit}  
         className='border border-teal-500 rounded-md p-3'
       >
         <Textarea
@@ -203,6 +212,7 @@ const CommentSection = ({postId}) => {
               key={comment._id}
               comment={comment}
               onLike={handleLike}
+              onEdit={handleEdit}
               onDelete={(commentId) => {
                 setShowModal(true);
                 setCommentToDelete(commentId);
