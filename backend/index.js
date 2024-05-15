@@ -38,7 +38,7 @@ app.use('/api/auth', userRouter);
 app.use('/api/profile', profileRouter);
 app.use('/api/post', postrouter);
 app.use('/api/users', allusers);
-app.use('/api/comments', commentrouter)
+app.use('/api/comments', commentrouter);
 
 
 //local host connection 

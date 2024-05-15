@@ -3,9 +3,9 @@ import moment from 'moment';
 import { FaThumbsUp } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Button, Textarea } from 'flowbite-react';
-//import { set } from 'mongoose';
 
-const Comment = ({comment, onLike}) => {
+const Comment = ({comment, onLike, onDelete}) => {
+
 
     const [user, setUser] = useState({});
     const [isEditing, setIsEditing] = useState(false);
@@ -28,6 +28,7 @@ const Comment = ({comment, onLike}) => {
         };
         getUser();
       }, [comment]);
+
 
   return (
     <div className='flex p-4 border-b dark:border-gray-600 text-sm'>
@@ -107,7 +108,7 @@ const Comment = ({comment, onLike}) => {
                     </button>
                     <button
                       type='button'
-                      // onClick={() => onDelete(comment._id)} 
+                      onClick={() => onDelete(comment._id)}
                       className='text-gray-400 hover:text-red-500'
                     >
                       Delete

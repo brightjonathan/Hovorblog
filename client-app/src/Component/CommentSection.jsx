@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import Comment from './Comment';
 
+
 const CommentSection = ({postId}) => {
 
     
@@ -56,7 +57,7 @@ const CommentSection = ({postId}) => {
     //getting comment
     useEffect(()=>{
      
-     const getComments =  async ()=>{
+     const getComments = async ()=>{
 
         try {
         const res = await fetch(`/api/comments/getPostComments/${postId}`);
@@ -105,6 +106,32 @@ const CommentSection = ({postId}) => {
         console.log(error.message);
       }       
     };
+
+
+
+    //Delete Post functionality
+    const handleDelete = async (commentId) => {
+      setShowModal(false);
+      try {
+        if (!currentUser) {
+          navigate('/sign-in');
+          return;
+        }
+        const res = await fetch(`/api/comments/deleteComment/${commentId}`, {
+          method: 'DELETE',
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setComments(comments.filter((comment) => comment._id !== commentId));
+        }else{
+          console.log(res);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+
 
   return (
     <div className='max-w-2xl mx-auto w-full p-3'>
@@ -176,11 +203,16 @@ const CommentSection = ({postId}) => {
               key={comment._id}
               comment={comment}
               onLike={handleLike}
+              onDelete={(commentId) => {
+                setShowModal(true);
+                setCommentToDelete(commentId);
+              }}
+
             />
           ))}
         </>
       )}
-      {/* <Modal
+      <Modal
         show={showModal}
         onClose={() => setShowModal(false)}
         popup
@@ -206,7 +238,7 @@ const CommentSection = ({postId}) => {
             </div>
           </div>
         </Modal.Body>
-      </Modal> */}
+      </Modal>
     </div>
   )
 }

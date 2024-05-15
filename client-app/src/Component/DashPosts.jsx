@@ -145,7 +145,7 @@ const DashPosts = () => {
                 <Table.Cell>
                   <span
                     onClick={() => confirmDelete(_id)}  
-                   className='font-medium text-red-500 hover:underline cursor-pointer' >
+                   className='font-medium text-red-500 hover:underline cursor-pointer'>
                     Delete
                   </span>
                 </Table.Cell>
