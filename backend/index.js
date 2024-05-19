@@ -1,3 +1,4 @@
+//all the dependencies imported
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from 'cors';
@@ -6,7 +7,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from 'dotenv';
 
-//all import file coming from a folder
+//all import file coming from a folders
 import db from './Config/db.js';
 import userRouter from "./routes/user.route.js";
 import profileRouter from "./routes/profile.route.js";

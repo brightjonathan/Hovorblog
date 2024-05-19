@@ -175,7 +175,7 @@ const CommentSection = ({postId}) => {
         className='border border-teal-500 rounded-md p-3'
       >
         <Textarea
-          placeholder='Add a comment...'
+          placeholder={`comment as ${currentUser.username}`}
           rows='3'
           maxLength='250'
           onChange={(e) => setComment(e.target.value)}
@@ -185,12 +185,12 @@ const CommentSection = ({postId}) => {
           <p className='text-gray-500 text-xs'>
             {250 - comment.length} characters remaining
           </p>
-          <Button outline gradientDuoTone='purpleToBlue' type='submit'>
+          <Button outline gradientDuoTone='purpleToBlue' type='submit'> 
             Submit
           </Button>
         </div>
         {commentError && (
-          <Alert color='failure' className='mt-5'>
+          <Alert color='failure' className='mt-5'> 
             {commentError}
           </Alert>
         )}
@@ -217,7 +217,6 @@ const CommentSection = ({postId}) => {
                 setShowModal(true);
                 setCommentToDelete(commentId);
               }}
-
             />
           ))}
         </>
