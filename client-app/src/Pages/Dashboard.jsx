@@ -6,6 +6,7 @@ import DashEditProfile from '../Component/DashEditProfile';
 import DashPosts from '../Component/DashPosts';
 import AdminDashoard from '../Component/AdminDashoard';
 import AllUsers from '../Component/AllUsers';
+import DashComments from '../Component/DashComments';
 
 
 
@@ -39,7 +40,7 @@ const Dashboard = () => {
     {/* users */}
     {tab === 'all-users' && <AllUsers/>}
     {/* comments  */}
-    {/* {tab === 'comments' && <DashComments />} */}
+    {tab === 'comments' && <DashComments />}
     {/* dashboard comp */}
     {tab === 'admin-dashboard' && <AdminDashoard/>}
     

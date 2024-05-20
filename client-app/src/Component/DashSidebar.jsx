@@ -6,6 +6,7 @@ import { GoSignOut } from "react-icons/go";
 import { MdPostAdd } from "react-icons/md";
 import { FaUserEdit } from "react-icons/fa";
 import { MdOutlineGroups3 } from "react-icons/md";
+import { FaRegComments } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from "react-toastify";
@@ -103,6 +104,18 @@ const DashSidebar = () => {
                 All Users
               </Sidebar.Item>
               </Link>
+             )}
+
+             {currentUser.isAdmin && (
+               <Link to={'/dashboard?tab=comments'}>
+               <Sidebar.Item
+                  active={tab === 'comments'}
+                  icon={FaRegComments}
+                  as='div'
+               > 
+                comments
+               </Sidebar.Item>
+               </Link>
              )}
 
               <Link to='/dashboard?tab=profile'>
