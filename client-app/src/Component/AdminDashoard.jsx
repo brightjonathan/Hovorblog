@@ -27,7 +27,6 @@ const AdminDashoard = () => {
         const res = await fetch('/api/users/allusers?limit=5');
         const data = await res.json();
         if (res.ok) {
-          console.log(data.users);
           setUsers(data.users);
           setTotalUsers(data.totalUsers);
           setLastMonthUsers(data.lastMonthUsers);
@@ -41,7 +40,6 @@ const AdminDashoard = () => {
         const res = await fetch('/api/post/getposts?limit=5');
         const data = await res.json();
         if (res.ok) {
-          console.log(data.posts);
           setPosts(data.posts);
           setTotalPosts(data.totalPosts);
           setLastMonthPosts(data.lastMonthPosts);
@@ -55,7 +53,6 @@ const AdminDashoard = () => {
         const res = await fetch('/api/comments/getcomments?limit=5');
         const data = await res.json();
         if (res.ok) {
-          console.log(data.comments);
           setComments(data.comments);
           setTotalComments(data.totalComments);
           setLastMonthComments(data.lastMonthComments);
