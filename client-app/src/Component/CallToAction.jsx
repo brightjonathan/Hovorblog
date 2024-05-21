@@ -1,5 +1,5 @@
 import { Button } from 'flowbite-react';
-
+import { Link } from 'react-router-dom'
 
 const CallToAction = () => {
   return (
@@ -12,13 +12,13 @@ const CallToAction = () => {
             Checkout these resources with 100 of articles
         </p>
         <Button gradientDuoTone='purpleToPink' className='rounded-tl-xl rounded-bl-none'>
-            <a href="#" target='_blank' rel='noopener noreferrer'>
+            <Link to={'/dashboard?tab=all-posts'}>
                 articles
-            </a>
+            </Link>
         </Button>
     </div>
     <div className="p-7 flex-1">
-        <img src="https://bairesdev.mo.cloudinary.net/blog/2023/08/What-Is-JavaScript-Used-For.jpg" />
+        <img src="https://i.ibb.co/sy85W5K/beach.jpg" alt="beach" border="0"/>
     </div>
 </div>
   )
