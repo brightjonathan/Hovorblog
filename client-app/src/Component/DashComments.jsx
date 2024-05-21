@@ -14,10 +14,11 @@ const DashComments = () => {
 
 
 
+    //fectch functionality using useeffect
     useEffect(() => {
         const fetchComments = async () => {
           try {
-            const res = await fetch(`/api/comment/getcomments`);
+            const res = await fetch(`/api/comments/getcomments`);
             const data = await res.json();
             if (res.ok) {
               setComments(data.comments);
@@ -33,7 +34,51 @@ const DashComments = () => {
           fetchComments();
         }
       }, [currentUser._id]);
+
+
+      //delete functionality
+      const handleDeleteComment = async () => {
+        setShowModal(false);
+        try {
+          const res = await fetch(
+            `/api/comments/deleteComment/${commentIdToDelete}`,
+            {
+              method: 'DELETE',
+            }
+          );
+          const data = await res.json();
+          if (res.ok) {
+            setComments((prev) =>
+              prev.filter((comment) => comment._id !== commentIdToDelete)
+            );
+            setShowModal(false);
+          } else {
+            console.log(data.message);
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
     
+
+      //handlesShowmore functionality
+      const handleShowMore = async () => {
+        const startIndex = comments.length;
+        try {
+          const res = await fetch(
+            `/api/comments/getcomments?startIndex=${startIndex}`
+          );
+          const data = await res.json();
+          if (res.ok) {
+            setComments((prev) => [...prev, ...data.comments]);
+            if (data.comments.length < 9) {
+              setShowMore(false);
+            }
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
 
 
   return (
@@ -93,7 +138,7 @@ const DashComments = () => {
       size='md'
     >
       <Modal.Header />
-      {/* <Modal.Body>
+      <Modal.Body>
         <div className='text-center'>
           <HiOutlineExclamationCircle className='h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto' />
           <h3 className='mb-5 text-lg text-gray-500 dark:text-gray-400'>
@@ -108,7 +153,7 @@ const DashComments = () => {
             </Button>
           </div>
         </div>
-      </Modal.Body> */}
+      </Modal.Body>
     </Modal>
   </div>
   )
