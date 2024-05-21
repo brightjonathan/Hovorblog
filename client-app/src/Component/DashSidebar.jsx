@@ -140,17 +140,20 @@ const DashSidebar = () => {
               Edit profile
             </Sidebar.Item>
           </Link>
-          <Link to='/dashboard?tab=all-posts'>
-          <Sidebar.Item
-            // className="mt-3"
-            active={tab === 'all-posts'}
-            icon={MdPostAdd}
-            labelColor='dark'
-            as='div'
-            >
-              {currentUser.isAdmin ? 'All Admin posts' : 'All User posts'}
-            </Sidebar.Item>
-          </Link>
+
+          {currentUser.isAdmin && (
+            <Link to='/dashboard?tab=all-posts'>
+            <Sidebar.Item
+              // className="mt-3"
+              active={tab === 'all-posts'}
+              icon={MdPostAdd}
+              labelColor='dark'
+              as='div'
+              >
+                All Admin posts
+              </Sidebar.Item>
+            </Link>
+          )}
 
            <div className='flex m-[1vh]' onClick={confirmLoggedout}>
             <GoSignOut className='mr-4' size={24}/>
