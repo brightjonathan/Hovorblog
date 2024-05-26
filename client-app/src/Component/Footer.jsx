@@ -22,20 +22,15 @@ const Footer1 = () => {
           <div>
             <Footer.Title title='About' />
             <Footer.LinkGroup col>
-              <Footer.Link
-                href='https://github.com/brightjonathan'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
+
+              <Link to={'/about'}>
                 About us
-              </Footer.Link>
-              <Footer.Link
-                href='/about'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
+              </Link>
+
+              <Link to={'/'}>
                 hovor Blog
-              </Footer.Link>
+              </Link>
+
             </Footer.LinkGroup>
           </div>
           <div>

@@ -15,6 +15,8 @@ import AdminPrivateRoute from './Component/AdminPrivateRoute';
 import UpdatePage from './Pages/UpdatePage';
 import PostPage from './Component/PostPage';
 import ScrollToTop from './Component/ScrollToTop';
+import About from './Pages/About';
+import Contact from './Pages/Contact';
 
 
 
@@ -27,6 +29,8 @@ const App = () => {
 
       <Routes>
       <Route path='/' element={<Home />} />
+      <Route path='/about' element={<About/>}/>
+      <Route path='/contact' element={<Contact/>}/>
       <Route path='/sign-up' element={<Signup />} />
       <Route path='/sign-in' element={<Signin/>} />
       <Route path='/post/:postslug' element={ <PostPage /> }/>

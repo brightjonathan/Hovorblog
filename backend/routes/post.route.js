@@ -4,7 +4,7 @@ import { createpost, getPosts, deletePost, updatePost} from '../controller/post.
 
 const postrouter = express.Router();
 
-postrouter.post('/create', verifyToken, createpost);
+postrouter.post('/create', verifyToken, createpost); 
 postrouter.get('/getposts', getPosts);
 postrouter.delete('/deletepost/:id', verifyToken, deletePost);
 postrouter.patch('/updatepost/:id', verifyToken, updatePost);
