@@ -17,6 +17,8 @@ import PostPage from './Component/PostPage';
 import ScrollToTop from './Component/ScrollToTop';
 import About from './Pages/About';
 import Contact from './Pages/Contact';
+import Terms from './Pages/Terms';
+import Privacy from './Pages/Privacy';
 
 
 
@@ -31,6 +33,8 @@ const App = () => {
       <Route path='/' element={<Home />} />
       <Route path='/about' element={<About/>}/>
       <Route path='/contact' element={<Contact/>}/>
+      <Route path='/terms_&_conditions' element={<Terms/>}/>
+      <Route path='/privacy_&_policy' element={<Privacy/>}/>
       <Route path='/sign-up' element={<Signup />} />
       <Route path='/sign-in' element={<Signin/>} />
       <Route path='/post/:postslug' element={ <PostPage /> }/>

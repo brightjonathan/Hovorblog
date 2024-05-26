@@ -33,6 +33,6 @@ You can reach out to us on the following platforms:
 
 [Facebook]
 [Instagram]
-[LinkedIn](https://www.linkedin.com/in/bright-jonathan-554970212/)(Creator)
+[LinkedIn](https://www.linkedin.com/in/bright-jonathan-554970212/) (Creator)
 [Twitter]
 
