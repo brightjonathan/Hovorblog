@@ -1,9 +1,11 @@
-# Chatty app: Instant Communication for Seamless Connections
+# HovorBlog: A Space For Exploration And Discovery
 
 ## Description
-Chatty app is an instant messaging platform that enables users to exchange text messages seamlessly. Step into the world of Chatty, where seamless communication is at your fingertips! This innovative messaging app re-defines the way users connect by offering instant text messaging.
+Welcome to HovorBlog, a space for exploration and discovery. Here, we delve into the fascinating world of ideas, experiences, and perspectives. From the mundane to the extraordinary, we explore topics that spark curiosity and inspire creativity.
 
-Whether you're sharing quick updates or engaging in meaningful conversations, Chatty ensures a smooth and efficient exchange of thoughts and ideas. Join the conversation and experience the convenience of instant communication with the Chatty app!
+Join us on a journey of learning, growth, and connection as we share stories, insights, and reflections on life's many wonders. Whether you're seeking inspiration, guidance, or simply a fresh perspective, HovorBlog is your haven for exploring the human experience.
+
+So sit back, relax, and let's embark on this adventure together. Who knows what wonders we'll discover along the way?
 
 
 ## Web Compatibility
@@ -17,7 +19,7 @@ This will be private to team members
 ## Installation
 To run this project locally, follow these steps:
 
-1. Clone the repository: `git clone (https://github.com/brightjonathan/ChatApp.git)`
+1. Clone the repository: `git clone (https://github.com/brightjonathan/Hovorblog.git/')`
 2. Install dependencies: `npm install`, though for better performance run `npm install --legacy-peer-deps`
 3. Start the development server: `npm run dev` Nb: "make sure you are in your client file directory"
 
@@ -31,6 +33,6 @@ You can reach out to us on the following platforms:
 
 [Facebook]
 [Instagram]
-[LinkedIn](https://www.linkedin.com/in/bright-jonathan-554970212/)
+[LinkedIn](https://www.linkedin.com/in/bright-jonathan-554970212/)(Creator)
 [Twitter]
 
