@@ -103,7 +103,7 @@ const Terms = () => {
 
     <div>
       <h2 className='mt-9 text-[20px] font-semibold'>12. <span className='underline'> Contact Us</span></h2>
-      <p className='pt-3'>Please send your feedback, comments, requests for technical support: By email: brightjonathan@gmail.com</p>
+      <p className='pt-3'>Please send your feedback, comments, requests for technical support: By email: support@hovorblog.com</p>
     </div>
 
     </div>  
