@@ -1,8 +1,7 @@
-import React from 'react'
 
 const Terms = () => {
   return (
-    <div className='mt-[20vh]'>
+    <div className='mt-[10vh] mb-[10vh]'>
     <h2 className='text-center font-extrabold text-4xl'> Terms & Conditions </h2>
 
     <div className='px-[5vh]  pt-2 lg:px-[35vh] text-[16px]'>
@@ -10,7 +9,7 @@ const Terms = () => {
 
     <div>
       <h2 className='mt-9 text-[20px] font-semibold'>1. <span className='underline'> Introduction </span></h2>
-      <p className='pt-3'>These Terms of Service <span className='font-bold'>(“Terms”, “Terms of Service”)</span> govern your use of our web pages and our mobile application <span className='font-bold'> (together or individual “Service”)</span> operated by HovorAd.</p>
+      <p className='pt-3'>These Terms of Service <span className='font-bold'>(“Terms”, “Terms of Service”)</span> govern your use of our web pages and our mobile application <span className='font-bold'> (together or individual “Service”)</span> operated by HovorBlog.</p>
       <p className='pt-3'>Our Privacy Policy also governs your use of our Service and explains how we collect, safeguard and disclose information that results from your use of our web pages.</p>
       <p className='pt-3'>Welcome to HovorBlog <span className='font-bold'>(“Company”, “we”, “our”, “us”)!</span> As you have just clicked our Terms of Service, please pause, grab a cup of coffee and carefully read the following pages. It will take you approximately 20 minutes.</p>
       <p className='pt-3'>Your agreement with us includes these Terms and our Privacy Policy <span className='font-bold'>(“Agreements”)</span>. You acknowledge that you have read and understood Agreements, and agree to be bound by them.</p>
@@ -91,8 +90,8 @@ const Terms = () => {
 
     <div>
       <h2 className='mt-9 text-[20px] font-semibold'>10. <span className='underline'> Links To Other Web Sites </span></h2>
-      <p className='pt-3'>Our Service may contain links to third party web sites or services that are not owned or controlled by HovorAd </p>
-      <p className='pt-3'>HovorAd has no control over, and assumes no responsibility for the content, privacy policies, or practices of any third party web sites or services. We do not warrant the offerings of any of these entities/individuals or their websites.</p>
+      <p className='pt-3'>Our Service may contain links to third party web sites or services that are not owned or controlled by HovorBlog </p>
+      <p className='pt-3'>HovorBlog has no control over, and assumes no responsibility for the content, privacy policies, or practices of any third party web sites or services. We do not warrant the offerings of any of these entities/individuals or their websites.</p>
       <p className='pt-3'>YOU ACKNOWLEDGE AND AGREE THAT HovorAd SHALL NOT BE RESPONSIBLE OR LIABLE, DIRECTLY OR INDIRECTLY, FOR ANY DAMAGE OR LOSS CAUSED OR ALLEGED TO BE CAUSED BY OR IN CONNECTION WITH USE OF OR RELIANCE ON ANY SUCH CONTENT, GOODS OR SERVICES AVAILABLE ON OR THROUGH ANY SUCH THIRD PARTY WEB SITES OR SERVICES.</p>
       <p className='pt-3'>WE STRONGLY ADVISE YOU TO READ THE TERMS OF SERVICE AND PRIVACY POLICIES OF ANY THIRD PARTY WEB SITES OR SERVICES THAT YOU VISIT.</p>
     </div>

@@ -1,8 +1,7 @@
-import React from 'react'
 
 const Privacy = () => {
   return (
-    <div className='mt-[20vh]' >
+    <div className='mt-[10vh] mb-[10vh]' >
       <h2 className='text-center font-extrabold text-4xl'> Privacy Policy </h2> 
 
       <div className='px-[5vh] pt-2 lg:px-[35vh] text-[16px]'> 
@@ -10,8 +9,8 @@ const Privacy = () => {
 
        <div>
         <h2 className='mt-9 text-[20px] font-semibold'>1. <span className='underline'> Introduction </span></h2>
-         <h2 className='pt-3'> Welcome to HovorAd </h2> 
-         <p className='pt-3'> HovorAd <span className='font-bold'> (“us”, “we”, or “our”) (hereinafter referred to as “Service ”)</span> .</p>
+         <h2 className='pt-3'> Welcome to HovorBlog </h2> 
+         <p className='pt-3'> HovorBlog <span className='font-bold'> (“us”, “we”, or “our”) (hereinafter referred to as “Service ”)</span> .</p>
          <p className='pt-3'>Our Privacy Policy governs your visit to, and explains how we collect, safeguard and disclose information that results from your use of our Service.</p>
          <p className='pt-3'>We use your data to provide and improve Service. By using Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, the terms used in this Privacy Policy have the same meanings as in our Terms and Conditions.</p>
          <p className='pt-3'>Our Terms and Conditions <span className='font-bold'>(“ Terms ”)</span> govern all use of our Service and together with the Privacy Policy constitutes your agreement with us<span className='font-bold'>(“ agreement ”)</span>.</p>
@@ -121,7 +120,7 @@ const Privacy = () => {
       <div>
         <h2 className='mt-9 text-[20px] font-semibold'>13. <span className='underline'>Contact Us</span></h2>
         <p>If you have any questions about this Privacy Policy, please contact us:</p>
-        <p>By email: <a href='mailto:brightjonathaninfor64@gmail.com'>support@hovorBlog.com</a></p>
+        <p>By email: <a href='mailto:brightjonathaninfor64@gmail.com'>support@hovorblog.com</a></p>
       </div>
 
       </div> 
