@@ -42,6 +42,15 @@ app.use('/api/users', allusers);
 app.use('/api/comments', commentrouter);
 
 
+
+//it has to be after the api routes
+app.use(express.static(path.join(__dirname, '/client-app/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client-app', 'dist', 'index.html'));
+})
+
+
 //local host connection 
 const port = 4000;
 app.listen(port, ()=>{
