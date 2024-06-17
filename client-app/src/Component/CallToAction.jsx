@@ -12,7 +12,7 @@ const CallToAction = () => {
             Checkout these resources with 100 of articles
         </p>
         <Button gradientDuoTone='purpleToPink' className='rounded-tl-xl rounded-bl-none'>
-            <Link to={'/dashboard?tab=all-posts'}>
+            <Link to={'/search'}>
                 articles
             </Link>
         </Button>

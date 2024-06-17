@@ -43,7 +43,7 @@ const Footer1 = () => {
               >
                 Github
               </Footer.Link>
-              <Footer.Link href='#'>Discord</Footer.Link>
+              <Footer.Link  href='https://www.linkedin.com/in/bright-jonathan-554970212/' target='_blank' rel='noopener noreferrer'>LinkedIn</Footer.Link>
             </Footer.LinkGroup>
           </div>
           <div>
