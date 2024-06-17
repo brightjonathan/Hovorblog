@@ -19,6 +19,7 @@ import About from './Pages/About';
 import Contact from './Pages/Contact';
 import Terms from './Pages/Terms';
 import Privacy from './Pages/Privacy';
+import Search from './Pages/Search';
 
 
 
@@ -37,6 +38,7 @@ const App = () => {
       <Route path='/privacy_&_policy' element={<Privacy/>}/>
       <Route path='/sign-up' element={<Signup />} />
       <Route path='/sign-in' element={<Signin/>} />
+      <Route path='/search' element={ <Search/> }/>
       <Route path='/post/:postslug' element={ <PostPage /> }/>
 
       {/* private route for users */}

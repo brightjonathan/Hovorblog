@@ -46,12 +46,12 @@ const Contact = () => {
         <h2 className='pl-9 pt-9 font-bold text-xl numcolor '> <span className='box-border flex items-center justify-center p-2 bg-white rounded-full w-14 h-14 '> <BiMessageDots className='w-8 h-8'/> </span> </h2>
         <h1 className='pl-9 pt-6 font-bold lg:text-3xl text-black' >Generel</h1>
         <h2 className='pl-9 pt-6 pb-[8vh] pcolor'> For general enquiries and feedback, email us at <br/> 
-        <a href="mailto:brightjonathaninfor64@gmail.com" className=' underline text-blue-700'>support@hovorAd.inc</a></h2>
+        <a href="mailto:brightjonathaninfor64@gmail.com" className=' underline text-blue-700'>support@hovorblog.com</a></h2>
         </div>
 
         <div className='rounded-[3vh] mb-9 divone'>
         <h2 className='pl-9 pt-9 font-bold text-xl numcolor '> <span className='box-border flex items-center justify-center p-2 bg-white rounded-full w-14 h-14 '> <MdOutlineSupportAgent className='w-8 h-8'/> </span> </h2>
-        <h1 className='pl-9 pt-6 font-bold lg:text-3xl ' >Support</h1>
+        <h1 className='pl-9 pt-6 font-bold lg:text-3xl' > Support </h1>
         <p className='pl-9 pt-6 pb-[8vh] pcolor'>Already a client or don't have questions? Check <br/>  out our Ad Blogs <Link to='/' className='underline text-blue-700'>here</Link></p>
         </div>
 
@@ -61,7 +61,7 @@ const Contact = () => {
 
          <div className='text-center '>
           <h1 className='pt-[15vh] text-4xl font-bold text-[black]'>Still have questions?</h1>
-          <h2 className='pt-2 text-[10px] m-3 sm:text-xl numcolor'>We hoped the FAQs would help. Since they didn't, please fill this short form and <br/> we'd give you special attention as quickly as possible.</h2>
+          <h2 className='pt-2 text-[10px] m-3 sm:text-xl text-[black]'>We hoped the FAQs would help. Since they didn't, please fill this short form and <br/> we'd give you special attention as quickly as possible.</h2>
          </div>
 
          <div>
