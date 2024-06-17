@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from 'dotenv';
+import path from 'path';
 
 //all import file coming from a folders
 import db from './Config/db.js';
@@ -20,6 +21,9 @@ import commentrouter from "./routes/comment.route.js";
 //connections to database
 db();
 dotenv.config();
+
+
+const __dirname = path.resolve();
 
 const app = express();
 app.use(express.json());
