@@ -2,11 +2,12 @@ import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: "hovorblog-99f5f.firebaseapp.com",
-  projectId: "hovorblog-99f5f",
-  storageBucket: "hovorblog-99f5f.appspot.com",
-  messagingSenderId: "291928119191",
-  appId: "1:291928119191:web:912e30763c7db30d21d6d2"
+  authDomain: "hovorblog-fa0c7.firebaseapp.com",
+  projectId: "hovorblog-fa0c7",
+  storageBucket: "hovorblog-fa0c7.appspot.com",
+  messagingSenderId: "20964592958",
+  appId: "1:20964592958:web:5655b90f54c80c5ca8f06f",
+  measurementId: "G-FM2HLQMQ7C"
 };
 
 // Initialize Firebase

@@ -20,7 +20,7 @@ export const signup = asyncHandler(async (req, res, next)=>{
     //validating the password length
     if(password.length < 6) return next(errorHandler(400, 'password must be up to 6 character'));
 
-    //checking if users already exist...
+    //checking if users alre]ady exist...
     const usernameExist = await User.findOne({username});
     if(usernameExist) return next(errorHandler(400, 'username already been taken'));
 
