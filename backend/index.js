@@ -45,6 +45,14 @@ app.use('/api/post', postrouter);
 app.use('/api/users', allusers);
 app.use('/api/comments', commentrouter);
 
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "img-src 'self' data: https://firebasestorage.googleapis.com;"
+  );
+  next();
+});
+
 
 
 //it has to be after the api routes
