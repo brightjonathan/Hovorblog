@@ -1,5 +1,6 @@
 import { Button } from 'flowbite-react';
 import { Link } from 'react-router-dom'
+import nature from '../assets/nature.jpg'
 
 const CallToAction = () => {
   return (
@@ -18,7 +19,7 @@ const CallToAction = () => {
         </Button>
     </div>
     <div className="p-7 flex-1">
-        <img src="https://i.ibb.co/sy85W5K/beach.jpg" alt="beach" border="0"/>
+        <img src={nature} alt="nature-image" border="0"  loading='lazy' />
     </div>
 </div>
   )
